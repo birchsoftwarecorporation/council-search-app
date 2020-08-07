@@ -36,4 +36,7 @@ export class DataService {
     });
   }
 
+  public getAlerts(): Observable<any> {
+    return this.http.get<any>(this.REST_API_SERVER+'/guest/alert');
+  }
 }

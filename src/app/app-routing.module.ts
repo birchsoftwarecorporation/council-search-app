@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'document/:uuid', component: DocumentComponent },
   { path: ':docType/:state/:geo/:type/:year/:month/:day', component: DocumentComponent },
-  { path: 'thankyou', component: ThankyouComponent },
+  { path: 'thankyou', component: ThankyouComponent }
 ];
 
 @NgModule({
