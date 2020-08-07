@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AlertComponent } from './alert/alert.component';
+import { AlertListComponent } from './alert-list/alert-list.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [AlertComponent, AlertListComponent],
   imports: [
     CommonModule
   ]

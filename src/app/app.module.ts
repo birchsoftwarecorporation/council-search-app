@@ -21,6 +21,10 @@ import { DocumentComponent } from './document/document.component';
 import { ContactComponent } from './contact/contact.component';
 import { BetasignupComponent } from './betasignup/betasignup.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
+import { LoginComponent } from './login/login.component';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard } from './services/auth-guard.service';
+import { AlertModule } from './alert/alert.module';
 
 
 @NgModule({
@@ -31,7 +35,8 @@ import { ThankyouComponent } from './thankyou/thankyou.component';
     DocumentComponent,
     ContactComponent,
     BetasignupComponent,
-    ThankyouComponent
+    ThankyouComponent,
+    AlertModule
   ],
   imports: [
     BrowserModule,
