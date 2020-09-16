@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from '@angular/core';
-import {Contact} from '../model/contact';
+import {Contact} from '../admin/models/contact';
 import {Router} from '@angular/router';
 import {DataService} from '../services/data.service';
 

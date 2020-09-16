@@ -1,0 +1,44 @@
+#alerts{
+  margin-top: 25px;
+}
+
+.card{
+  width: 18rem;
+  margin: 10px 15px;
+}
+
+#alerts .card-body.top-card {
+  padding: 1.25rem 1.25rem 0rem 1.25rem;
+}
+
+
+#alerts .card-body p{
+  padding-bottom: 0.25rem;
+}
+
+#alerts .card-body i{
+  padding-right: 7px;
+}
+
+.list-group-item{
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.list-group-item span{
+  font-size: 18px;
+  padding-right: 5px;
+}
+
+.card.addNew{
+  background-color: #E0E0E0;
+  color: white;
+  padding-top: 10rem;
+  cursor: pointer;
+  min-height: 550px;
+}
+
+.card.addNew > .card-body > i{
+  font-size: 10rem;
+  padding-right: 0;
+}

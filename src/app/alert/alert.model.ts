@@ -1,9 +1,11 @@
-import {User} from '../model/user.model';
-import {Result} from '../model/search/result';
+import { User } from '../user/user.model';
 
 export class Alert {
   public id: number;
   public name: string;
+  public phrases = new Array<String>();
+  public regions = new Array<number>(); // List of ids
+  public members = new Array<number>(); // List of ids
   public status: string;
   public isManager: boolean;
   public dateCreated: Date;
@@ -12,9 +14,13 @@ export class Alert {
   public numMembers: number;
   public numRegions: number;
   public numPhrases: number;
+  public imgNum: number;
 
+  constructor() {
+    this.name = "";
+  }
 
-  constructor(jsonObj) {
+  buildListItem(jsonObj) {
     this.id = jsonObj.id;
     this.name = jsonObj.name;
     this.status = jsonObj.status;
@@ -25,6 +31,12 @@ export class Alert {
     this.numPhrases = jsonObj.numPhrases;
     this.dateCreated = new Date(jsonObj.dateCreated);
     this.lastUpdated = new Date(jsonObj.lastUpdated);
+    this.imgNum = jsonObj.image
+  }
+
+
+  randomIntFromInterval(min, max) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
 }

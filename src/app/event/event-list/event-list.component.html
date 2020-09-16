@@ -1,0 +1,46 @@
+<div class="container pt-5 pb-5">
+  <div class="eventToolbar rounded p-2">
+    Events: All
+  </div>
+  <div *ngFor="let event of events" class="eventItem row p-2">
+    <div class="eventMeta pt-1 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="spacer">&nbsp;</div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-calendar pr-3"></i>
+        <span>{{event.meetingDate | date:'MMMM dd, yyyy'}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-globe pr-3"></i>
+        <span>{{event.regionName}}, {{event.stateAbbr}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-file pr-3"></i>
+        <span>{{event.documentType}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-bell pr-3"></i>
+        <span>{{event.alertName}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-user pr-3"></i>
+        <span>{{event.ownerName}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-hashtag pr-3"></i>
+        <span>{{event.matchCount}} Matches</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-comment pr-3"></i>
+        <span>{{event.commentCount}} Comments</span>
+      </div>
+    </div>
+    <div class="eventText col-lg-9 col-md-6 col-sm-12 col-12">
+      <div class="title p-2">{{event.documentTitle}}</div>
+      <div class="description p-2" [innerHTML]="event.preview"></div>
+      <div class="p-2">
+        <button [routerLink]="['/document/', event.documentId]" class="btn btn-primary readMore">View Document</button>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>

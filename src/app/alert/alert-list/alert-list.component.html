@@ -1,1 +1,30 @@
-<p>alert-list works!</p>
+<!-- Alerts list -->
+<div id="alerts" class="container-fluid page-body">
+  <div class="row mx-auto">
+    <div class="card" *ngFor="let alert of alerts">
+      <img class="card-img-top" src="../../../assets/images/cityscapes/{{alert.imgNum}}.jpg" alt="City Image">
+      <div class="card-body top-card">
+        <h5 class="card-title">{{alert.name}}</h5>
+        <p class="card-subtitle"><i class="fa fa-user-o"></i>{{alert.manager}}</p>
+        <p class="card-subtitle"><i class="fa fa-clock-o"></i> {{ alert.lastUpdated | date:'MMMM dd, yyyy'}}</p>
+        <!--        <p class="card-text"></p>-->
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>{{alert.numPhrases | number}}</span> Phrases</li>
+        <li class="list-group-item"><span>{{alert.numRegions | number}}</span> Regions</li>
+        <li class="list-group-item"><span>{{alert.numMembers | number}}</span> Collaborators</li>
+      </ul>
+      <div class="card-body">
+        <a href="#" class="card-link" *ngIf="alert.isManager" >Edit</a>
+<!--        <a href="#" class="card-link" (click)="removeAlert(alert.id)" *ngIf="alert.isManager">Remove</a>-->
+        <a href="#" class="card-link" *ngIf="alert.isManager">Remove</a>
+      </div>
+    </div>
+    <!-- Add New Card -->
+    <div class="card addNew" [routerLink]="['/alert/create']">
+      <div class="card-body mx-auto">
+        <i class="fa fa-plus"></i>
+      </div>
+    </div>
+  </div>
+</div>
