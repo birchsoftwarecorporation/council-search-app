@@ -13,11 +13,15 @@ import { AlertModule } from './alert/alert.module';
 import { DocumentModule } from './document/document.module';
 import { EventModule } from './event/event.module';
 import { SearchModule } from './search/search.module';
+import { LoginComponent } from './login/login.component';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard } from './services/auth-guard.service';
 
 
 @NgModule({
   declarations: [
     AppComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,11 +41,15 @@ import { SearchModule } from './search/search.module';
     // MatAutocompleteModule,
     // MatInputModule
   ],
-  providers: [{
+  providers: [
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-  }],
+    },
+    CookieService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
