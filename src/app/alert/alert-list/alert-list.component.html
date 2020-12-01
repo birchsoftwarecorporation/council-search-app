@@ -1,5 +1,10 @@
+<div *ngIf="errorMsg != null" class="document container page-body">
+  <div class="row mx-auto pt-4">
+    <p class="errorMsg p-3">{{errorMsg}}</p>
+  </div>
+</div>
 <!-- Alerts list -->
-<div id="alerts" class="container-fluid page-body">
+<div *ngIf="success" id="alerts" class="container-fluid page-body">
   <div class="row mx-auto">
     <div class="card" *ngFor="let alert of alerts">
       <img class="card-img-top" src="../../../assets/images/cityscapes/{{alert.imgNum}}.jpg" alt="City Image">
@@ -15,9 +20,8 @@
         <li class="list-group-item"><span>{{alert.numMembers | number}}</span> Collaborators</li>
       </ul>
       <div class="card-body">
-        <a href="#" class="card-link" *ngIf="alert.isManager" >Edit</a>
-<!--        <a href="#" class="card-link" (click)="removeAlert(alert.id)" *ngIf="alert.isManager">Remove</a>-->
-        <a href="#" class="card-link" *ngIf="alert.isManager">Remove</a>
+<!--        <a href="#" class="card-link" *ngIf="alert.isManager" >Edit</a>-->
+        <a class="card-link" (click)="removeAlert(alert)" *ngIf="alert.isManager">Remove</a>
       </div>
     </div>
     <!-- Add New Card -->
@@ -26,5 +30,11 @@
         <i class="fa fa-plus"></i>
       </div>
     </div>
+  </div>
+</div>
+<!-- Loading Overlay -->
+<div id="overlay" *ngIf="isPageLoading">
+  <div id="spinner" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
 </div>

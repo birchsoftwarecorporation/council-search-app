@@ -1,0 +1,169 @@
+body{
+  background-color: white;
+}
+
+.highlight {
+  background: #fcff00 !important;
+}
+
+/* Error/Loading stuff */
+.errorMsg {
+  font-size: 30px;
+  color: grey;
+  border-left: 2px solid #d92027
+}
+
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .25);
+  z-index: 2;
+  cursor: pointer
+}
+
+#spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #009dff;
+  width: 5rem;
+  height: 5rem
+}
+
+
+@media (min-width: 1200px) {
+  .container{
+    max-width: 1500px;
+  }
+}
+
+
+.eventToolbar{
+  color: white;
+  background-color: #050429;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: .95%;
+}
+
+.eventItem{
+  /*border-bottom: 2px solid #050429;*/
+}
+
+hr{
+  width: 100%;
+  height: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #000;
+}
+
+.eventMeta{
+  width: 100%;
+}
+
+.eventMeta .spacer{
+  /*border-bottom: 1px solid #909090;*/
+}
+
+.eventMetaItem{
+  border-bottom: 1px solid #B8B8B8;
+  color: #606060;
+  text-transform: capitalize;
+}
+
+.eventMetaItem i{
+  color: #BEBEBE;
+  font-size: 18px;
+}
+
+.eventMetaItem span{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.eventText .title{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.eventText .readMore{
+  background-color: #d92027;
+  border: 1px solid #d92027;
+  color: #fff;
+  opacity: .75;
+}
+
+.eventText .readMore:hover{
+  opacity: 1.0;
+  background-color: #d92027;
+  border: 1px solid #d92027;
+  color: #fff;
+}
+
+#eventStatus, #eventOwner{
+  text-transform: capitalize;
+}
+
+.mat-option{
+  text-transform: capitalize;
+}
+
+.mat-expansion-panel-header{
+  background-color: white;
+}
+
+mat-panel-title{
+  text-transform: capitalize;
+}
+
+.mat-expansion-panel-body{
+  background-color: #BEBEBE;
+}
+
+.description {
+  background-color: white;
+}
+
+#commentList{
+  background-color: #F5F5F5;
+}
+
+.commentItem{
+  background-color: white;
+}
+
+.commentAuthor{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.commentDate{
+  font-size: 12px;
+  color: #BEBEBE;
+  font-style: italic;
+}
+
+.commentText{
+  font-size: 14px;
+}
+
+.filterButton {
+  color: #009dff;
+  background-color: #fff;
+  border: 1px solid #009dff;
+  font-size: 12px;
+}
+
+.filterButton:hover,
+.result .badge {
+  color: #fff;
+  background-color: #009dff
+}
+

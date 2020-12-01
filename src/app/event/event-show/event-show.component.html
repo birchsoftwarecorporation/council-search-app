@@ -1,1 +1,107 @@
-<p>event-show works!</p>
+<div *ngIf="errorMsg != null" class="document container page-body">
+  <div class="row mx-auto pt-4">
+    <p class="errorMsg p-3">{{errorMsg}}</p>
+  </div>
+</div>
+
+<!-- Event -->
+<div *ngIf="success" class="container pt-5 pb-5">
+  <div *ngIf="event != null" class="eventItem row p-2">
+    <!-- Meta Data -->
+    <div class="eventMeta pt-1 col-lg-3 col-md-6 col-sm-12 col-12">
+      <div class="spacer">&nbsp;</div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-calendar pr-3"></i>
+        <span>{{event.meetingDate | date:'MMMM dd, yyyy'}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-globe pr-3"></i>
+        <span>{{event.regionName}}, {{event.stateAbbr}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-file pr-3"></i>
+        <span>{{event.documentType}}</span>
+      </div>
+      <div class="eventMetaItem px-3 py-2 mr-5">
+        <i class="fa fa-bell pr-3"></i>
+        <span>{{event.alertName}}</span>
+      </div>
+    </div>
+    <!-- Data data -->
+    <div class="eventText col-lg-9 col-md-6 col-sm-12 col-12">
+      <!-- Event Title -->
+      <div class="title py-2 pb-4">{{event.documentTitle}}</div>
+      <!-- Event Status -->
+      <div class="form-group">
+        <label for="eventOwner">Owner</label>
+        <mat-select id="eventOwner" class="shadow-sm p-1" [(ngModel)]="event.owner" [compareWith]="userCompare" (selectionChange)="onOwnerChange($event)">
+          <mat-option *ngFor="let member of members" [value]="member">
+            {{ member.fullName }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <!-- Event Status -->
+      <div class="form-group">
+        <label for="eventStatus">Status</label>
+        <mat-select id="eventStatus" class="shadow-sm p-1" [(ngModel)]="event.status" (selectionChange)="onStatusChange($event)">
+          <mat-option *ngFor="let status of statuses" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <!-- Event Description -->
+      <div class="form-group">
+        <label for="eventDesc">Description</label>
+        <textarea class="form-control" id="eventDesc" name="description" rows="3" [(ngModel)]="event.description"></textarea>
+        <button (click)="applyDescription()" class="btn mt-2 py-2 filterButton">Apply</button>
+      </div>
+
+      <div class="form-group">
+        <label for="previews">Previews</label>
+        <!-- Previews -->
+        <mat-accordion id="previews" class="example-headers-align" multi>
+          <mat-expansion-panel *ngFor="let preview of event.previews" >
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{preview.phrase}}</mat-panel-title>
+              <!--            <mat-panel-description>Description...</mat-panel-description>-->
+            </mat-expansion-panel-header>
+            <div class="description p-4 m-1" *ngFor="let text of preview.texts">
+              <div [innerHTML]="text"></div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+      <!-- Document Link -->
+      <!-- Event Description -->
+      <div class="form-group py-3">
+        <label for="eventDoc">Document</label>
+        <div id="eventDoc">
+          <button [routerLink]="['/document/', event.documentUUID]" class="btn btn-primary readMore">View Document</button>
+        </div>
+      </div>
+
+      <!-- Comment field -->
+      <div class="form-group">
+        <label for="newComment">Comments</label>
+        <textarea class="form-control" id="newComment" name="newComment" rows="3" [(ngModel)]="newComment"></textarea>
+        <button (click)="applyComment()" class="btn mt-2 py-2 filterButton">Apply</button>
+      </div>
+      <div id="commentList" *ngIf="event.comments.length > 0" class="p-2 m-2">
+        <div class="commentItem shadow p-3 mb-2 bg-white rounded" *ngFor="let comment of event.comments">
+          <div class="commentAuthor">{{comment.firstName}} {{comment.lastName}}</div>
+          <div class="commentDate">{{comment.dateCreated | date:'medium'}}</div>
+          <div class="commentText pt-1" [innerHTML]="comment.text"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="overlay" *ngIf="isPageLoading">
+  <div id="spinner" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+

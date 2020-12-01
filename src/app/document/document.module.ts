@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DocumentRoutingModule } from './document-routing.module';
-import { DocumentComponent } from './document/document.component';
+import { DocumentShowComponent } from './document-show/document-show.component';
 
 
 @NgModule({
-  declarations: [DocumentComponent],
+  declarations: [DocumentShowComponent],
   imports: [
     CommonModule,
     DocumentRoutingModule

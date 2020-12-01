@@ -13,3 +13,7 @@
 #joinBtn{
   border: 1px solid #d92027;
 }
+
+ul.navbar-nav li i{
+  color: white;
+}

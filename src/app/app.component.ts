@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+
 import { environment } from '../environments/environment';
-import { LoginService } from './services/login.service';
+
+import { LoginService } from './login/login.service';
+
 
 declare let gtag: Function;
 
@@ -11,33 +14,11 @@ declare let gtag: Function;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'council-search-app';
-  displayBetaSignUp: boolean;
   isProd = environment.production;
   isLoggedIn = false;
   userName = null;
 
   constructor(public router: Router, private loginService: LoginService) {
-    // Sign up
-    let dateBetaClosedStr = localStorage.getItem("dateBetaClosed");
-
-    // Theres a date in there
-    if (dateBetaClosedStr != null && dateBetaClosedStr != undefined) {
-      let dateBetaClosed = new Date(dateBetaClosedStr);
-      let weekAgo = new Date(); // Today
-      weekAgo.setDate(weekAgo.getDate() - 7); // one week ago
-
-      if (dateBetaClosed.getTime() < weekAgo.getTime()) {
-        this.displayBetaSignUp = true;
-      } else {
-        this.displayBetaSignUp = false;
-      }
-
-      // If they've never closed it
-    } else {
-      this.displayBetaSignUp = true;
-    }
-
     if (this.isProd) {
       // Google analytics
       this.router.events.subscribe(event => {
@@ -47,12 +28,12 @@ export class AppComponent {
           });
         }
       })
-
     } else {
       console.log("Google analytics is off");
     }
 
     const user = this.loginService.getCurrentUser();
+
     if (user) {
       this.userName = user.username;
       this.isLoggedIn = true;
@@ -69,13 +50,6 @@ export class AppComponent {
     });
   }
 
-  closeBetaDisplay() {
-    // Close dialog
-    this.displayBetaSignUp = false;
-    // Set the date locally
-    let now = new Date();
-    localStorage.setItem("dateBetaClosed", now.toString());
-  }
 
   logout() {
     this.loginService.logout();

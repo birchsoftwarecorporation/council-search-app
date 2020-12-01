@@ -132,14 +132,14 @@
               </div>
             </div>
             <div class="geoOptions mt-2 pl-2">
-              <div *ngIf="collabMap.get('users') == null || collabMap.get('users').length == 0" class="noFilters mx-auto py-2 px-1">
+              <div *ngIf="collabMap.get('people') == null || collabMap.get('people').length == 0" class="noFilters mx-auto py-2 px-1">
                 No Colleagues Available
               </div>
-              <div *ngFor="let user of collabMap.get('users'); let i = index" class="checkbox">
-                <label class="custom-control custom-checkbox list-item" *ngIf="user.fullName.toLowerCase().includes(collabMap.get('filter').toLowerCase())">
-                  <input type="checkbox" [checked]="user.checked" (change)="user.toggle()" class="custom-control-input" >
+              <div *ngFor="let person of collabMap.get('people'); let i = index" class="checkbox">
+                <label class="custom-control custom-checkbox list-item" *ngIf="person.fullName.toLowerCase().includes(collabMap.get('filter').toLowerCase())">
+                  <input type="checkbox" [checked]="person.checked" (change)="person.toggle()" class="custom-control-input" >
                   <span class="custom-control-indicator"></span>
-                  <span class="custom-control-label list-item-label">{{user.fullName}}</span>
+                  <span class="custom-control-label list-item-label">{{person.fullName}}</span>
                 </label>
               </div>
             </div>

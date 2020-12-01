@@ -1,6 +1,16 @@
-<div class="container pt-5 pb-5">
+<div *ngIf="errorMsg != null" class="document container page-body">
+  <div class="row mx-auto pt-4">
+    <p class="errorMsg p-3">{{errorMsg}}</p>
+  </div>
+</div>
+<div *ngIf="success" class="container pt-5 pb-5">
   <div class="eventToolbar rounded p-2">
     Events: All
+  </div>
+  <div *ngIf="events == null || events.length == 0" class="row">
+    <div class="col-12">
+      <p class="noEventsMsg text-center">No events yet!</p>
+    </div>
   </div>
   <div *ngFor="let event of events" class="eventItem row p-2">
     <div class="eventMeta pt-1 col-lg-3 col-md-6 col-sm-12 col-12">
@@ -23,7 +33,7 @@
       </div>
       <div class="eventMetaItem px-3 py-2 mr-5">
         <i class="fa fa-user pr-3"></i>
-        <span>{{event.ownerName}}</span>
+        <span>{{event.owner.fullName}}</span>
       </div>
       <div class="eventMetaItem px-3 py-2 mr-5">
         <i class="fa fa-hashtag pr-3"></i>
@@ -36,11 +46,19 @@
     </div>
     <div class="eventText col-lg-9 col-md-6 col-sm-12 col-12">
       <div class="title p-2">{{event.documentTitle}}</div>
-      <div class="description p-2" [innerHTML]="event.preview"></div>
+      <div class="description p-2" *ngIf="event.description != null && event.description != ''" [innerHTML]="event.description"></div>
+      <div class="description p-2" *ngIf="(event.description == null || event.description == '') && event.previews.length > 0 && event.previews[0].texts.length > 0" [innerHTML]="event.previews[0].texts[0]"></div>
       <div class="p-2">
-        <button [routerLink]="['/document/', event.documentId]" class="btn btn-primary readMore">View Document</button>
+        <button [routerLink]="['/event/show/', event.uuid]" class="btn btn-primary readMore">View Event</button>
       </div>
     </div>
     <hr>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="overlay" *ngIf="isPageLoading">
+  <div id="spinner" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
 </div>

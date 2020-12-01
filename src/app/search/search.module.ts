@@ -6,12 +6,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+
+
+
 import { SearchRoutingModule } from './search-routing.module';
-import { SearchComponent } from './search/search.component';
+
+import { HomeComponent } from './home/home.component';
+import { MainComponent } from './main/main.component';
 
 
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [HomeComponent, MainComponent],
   imports: [
     CommonModule,
     FormsModule,

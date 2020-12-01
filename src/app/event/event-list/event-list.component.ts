@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../event.service';
-import { Event } from '../event.model';
+import { Event } from '../models/event.model';
 
 
 @Component({
@@ -15,28 +15,38 @@ export class EventListComponent implements OnInit {
   events = new Array<Event>();
 
   // Display Stuff
-  isPageLoading = false; // TODO - make this a component
+  isPageLoading = true; // TODO - make this a component
   errorMsg: string;
+  success: boolean;
 
   constructor(private actRoute: ActivatedRoute,  private eventService: EventService) { }
 
   ngOnInit(): void {
     // Parse the results
-    this.eventService.getEvents().subscribe(data => {
+    this.eventService.list().subscribe(data => {
       if (data == undefined || data == null) {
         this.errorMsg = data['Error'];
+        this.success = false;
       } else {
         this.buildEvents(data);
+        this.success = true;
       }
-      // this.isPageLoading = false;
-    })
+      this.isPageLoading = false;
+    },(error) => {
+      console.log(error);
+      this.errorMsg = "Could not load event list";
+      this.isPageLoading = false;
+      this.success = false;
+    });
   }
 
   buildEvents(events){
     this.events = new Array<Event>();
 
     for (let jsonObj of events) {
-      this.events.push(new Event(jsonObj));
+      let event = new Event();
+      event.build(jsonObj);
+      this.events.push(event);
     }
   }
 

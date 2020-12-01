@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DocumentComponent } from './document/document.component';
+
+import { DocumentShowComponent } from './document-show/document-show.component';
 
 const routes: Routes = [
-  { path: 'document/:uuid', component: DocumentComponent },
-  { path: ':docType/:state/:geo/:type/:year/:month/:day', component: DocumentComponent }
+  { path: 'document/:uuid', component: DocumentShowComponent },
+  { path: ':docType/:state/:geo/:type/:year/:month/:day', component: DocumentShowComponent }
 ];
 
 @NgModule({

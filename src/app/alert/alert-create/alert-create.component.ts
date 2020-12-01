@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { AlertService } from '../alert.service';
 import { StateService } from '../../state/state.service';
 import { RegionService } from '../../region/region.service';
-import { UserService } from '../../user/user.service';
+import { PersonService } from '../../person/person.service';
 
 import { Region } from '../../region/region.model';
-import { Alert } from '../alert.model';
+import { Alert } from '../models/alert.model';
 import { State } from '../../state/state.model';
-import { User } from '../../user/user.model';
+import { Person } from '../../person/person.model';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class AlertCreateComponent implements OnInit {
   stateComplete = false;
   regionsComplete = false;
   collabComplete = false;
-  connectorsComplete = false;
+  alertComplete = false;
 
   // Data
   alert = new Alert();
@@ -39,11 +39,11 @@ export class AlertCreateComponent implements OnInit {
   collabMap = new Map();
   tempPhrase = "";
 
-  constructor(private router:Router, private alertService: AlertService, private stateService: StateService, private regionService: RegionService, private userService: UserService, private toastr: ToastrService) { }
+  constructor(private router:Router, private alertService: AlertService, private stateService: StateService, private regionService: RegionService, private personService: PersonService, private toastr: ToastrService) { }
 
   ngOnInit() {
     // Parse the state results
-    this.stateService.getStates().subscribe(data => {
+    this.stateService.list().subscribe(data => {
       if (data == undefined || data == null) {
         // this.errorMsg = data['Error'];
       } else {
@@ -51,7 +51,7 @@ export class AlertCreateComponent implements OnInit {
       }
     })
 
-    this.userService.getUsers().subscribe(data => {
+    this.personService.list().subscribe(data => {
       if (data == undefined || data == null) {
         // this.errorMsg = data['Error'];
       } else {
@@ -88,7 +88,7 @@ export class AlertCreateComponent implements OnInit {
     this.alert.members = new Array<number>();
 
     // Populate the completed members
-    for(let member of this.collabMap.get("users")){
+    for(let member of this.collabMap.get("people")){
       if(member.checked){
         this.alert.members.push(member.id);
       }
@@ -156,19 +156,19 @@ export class AlertCreateComponent implements OnInit {
     }
   }
 
-  buildCollab(usersJSON){
-    let users = new Array<User>();
+  buildCollab(peopleJSON){
+    let people = new Array<Person>();
 
     // Create the state obj
-    for (let userJSON of usersJSON) {
-      users.push(new User(userJSON));
+    for (let personJSON of peopleJSON) {
+      people.push(new Person(personJSON));
     }
 
     // Add the filter to the map
     this.collabMap.set("filter", "");
 
-    // Add the users to the map
-    this.collabMap.set("users", users);
+    // Add the collaborators to the map
+    this.collabMap.set("people", people);
 
   }
 
@@ -176,14 +176,25 @@ export class AlertCreateComponent implements OnInit {
     this.toastr.info("Preparing alert...", "Alert", { timeOut: 5000 });
 
     // Parse the results
-    this.alertService.createAlert(this.alert).subscribe(data => {
-      if (data == undefined || data == null) {
+    this.alertService.create(this.alert).subscribe(alert => {
+      if (alert == undefined || alert == null) {
         this.toastr.error("Could not create alert!", "Alert", { timeOut: 5000 });
       } else {
-        this.toastr.success("Alert '"+this.alert.name+"' created successfully!", "Alert", { timeOut: 5000 });
-        setTimeout(() => {
-          this.router.navigate(['/alert/list']);
-        }, 1000);
+        this.toastr.info("Looking for recent events...", "Alert", { timeOut: 5000 });
+
+
+        // Tell the server to process the new alert
+        this.alertService.process(alert.id).subscribe(data => {
+          if (data == undefined || data == null) {
+            this.toastr.error("Could not process alert!", "Alert", { timeOut: 5000 });
+          } else {
+            this.toastr.success("Alert '"+this.alert.name+"' created successfully!", "Alert", { timeOut: 5000 });
+
+            setTimeout(() => {
+              this.router.navigate(['/alert/list']);
+            }, 1000);
+          }
+        })
       }
     })
   }

@@ -1,27 +1,29 @@
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-import { InterceptorService } from './services/interceptor.service';
+import { CookieService } from 'ngx-cookie-service';
 
-import { AdminModule } from './admin/admin.module';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+
+import { JwtInterceptorService } from './helpers/jwt-interceptor.service';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { AuthGuard } from './helpers/auth-guard.service';
+
 import { AlertModule } from './alert/alert.module';
+import { ContactModule } from './contact/contact.module';
 import { DocumentModule } from './document/document.module';
 import { EventModule } from './event/event.module';
+import { LoginModule } from './login/login.module';
 import { SearchModule } from './search/search.module';
-import { LoginComponent } from './login/login.component';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthGuard } from './services/auth-guard.service';
-
 
 @NgModule({
   declarations: [
     AppComponent
-    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,10 +33,11 @@ import { AuthGuard } from './services/auth-guard.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    EventModule,
-    AdminModule,
     AlertModule,
+    ContactModule,
     DocumentModule,
+    EventModule,
+    LoginModule,
     SearchModule
   ],
   exports: [ // FYI - https://stackoverflow.com/questions/60221876/angular-material-not-working-in-angular-version-9
@@ -42,11 +45,8 @@ import { AuthGuard } from './services/auth-guard.service';
     // MatInputModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     CookieService,
     AuthGuard
   ],

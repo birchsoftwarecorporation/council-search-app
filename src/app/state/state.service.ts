@@ -13,7 +13,7 @@ export class StateService {
 
   constructor(private http: HttpClient) { }
 
-  public getStates(): Observable<any> {
+  public list(): Observable<any> {
     return this.http.get<any>(this.REST_API_URL+'/api/guest/state');
   }
 
