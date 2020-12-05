@@ -1,170 +1,193 @@
+<div class="container pt-5 pb-3">
+  <div class="row">
+    <div class="col-12">
+      <h2>Create Alert</h2>
+      <hr class="header">
+    </div>
+  </div>
+</div>
 <div class="container">
-  <mat-vertical-stepper linear labelPosition="bottom" #stepper>
-    <!-- Details -->
-    <mat-step [stepControl]="detailsComplete" id="detailsCompleteStep">
-      <ng-template matStepLabel>Details</ng-template>
-      <div class="stepContainer p-3">
-        <div class="row">
-          <div class="col-12">
-              <div class="form-group has-error">
-                <label class="control-label" for="alertName">Alert Name</label>
-                <input [(ngModel)]="alert.name" type="text" class="form-control" id="alertName" placeholder="Infrastructure, Business Development, Fiscal">
-              </div>
-              <div class="form-group">
-                <label for="alertPhrase">Phrases</label>
-                <input [(ngModel)]="tempPhrase"  (keyup.enter)="addPhrase()" type="text" class="form-control" id="alertPhrase" placeholder="Right of way, small cell, pole attachment" >
-              </div>
-              <div id="phraseBox">
+  <div *ngIf="errorMsg != null" class="row mx-auto pt-4">
+    <p class="errorMsg p-3">{{errorMsg}}</p>
+  </div>
+</div>
+<div *ngIf="success" class="container">
+  <div class="row">
+    <div class="col-12">
+      <mat-vertical-stepper linear labelPosition="bottom" #stepper>
+        <!-- Details -->
+        <mat-step [stepControl]="detailsComplete" id="detailsCompleteStep">
+          <ng-template matStepLabel>Details</ng-template>
+          <div class="stepContainer p-3">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group has-error">
+                  <label class="control-label" for="alertName">Alert Name</label>
+                  <input [(ngModel)]="alert.name" type="text" class="form-control" id="alertName" placeholder="Infrastructure, Business Development, Fiscal">
+                </div>
+                <div class="form-group">
+                  <label for="alertPhrase">Phrases</label>
+                  <input [(ngModel)]="tempPhrase"  (keyup.enter)="addPhrase()" type="text" class="form-control" id="alertPhrase" placeholder="Right of way, small cell, pole attachment" >
+                </div>
+                <div id="phraseBox">
                 <span *ngFor="let phrase of alert.phrases; let i = index" href="#" class="badge" (click)="removePhrase(phrase)">
                   {{phrase}}<i class="fa fa-times"></i>
                 </span>
+                </div>
+                <button class="btn addButton" type="button" (click)="addPhrase()"><i class="fa fa-plus"></i>&nbsp;Add</button>
               </div>
-              <button class="btn addButton" type="button" (click)="addPhrase()"><i class="fa fa-plus"></i>&nbsp;Add</button>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn mb-4 mr-2 stepButton" (click)="validateDetails()" matStepperNext>Next</button>
-        </div>
-      </div>
-    </mat-step>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn mb-4 mr-2 stepButton" (click)="validateDetails()" matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
 
-    <!-- States -->
-    <mat-step [stepControl]="stateComplete">
-      <ng-template matStepLabel>States</ng-template>
-      <div class="stepContainer p-3">
-        <div class="row">
-          <div class="col-xl-6">
-            <h6>States</h6>
-            <div class="filter-input">
-              <div class="input-group">
-<!--                <input [(ngModel)]="stateMap.get('filter')" (ngModelChange)="stateMap.set('filter', $event)" placeholder="Type to filter states..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >-->
-                <input [(ngModel)]="stateMap['filter']" (ngModelChange)="stateMap.set('filter', $event)" placeholder="Type to filter states..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
-                <span class="input-group-append">
+        <!-- States -->
+        <mat-step [stepControl]="stateComplete">
+          <ng-template matStepLabel>States</ng-template>
+          <div class="stepContainer p-3">
+            <div class="row">
+              <div class="col-xl-6">
+                <h6>States</h6>
+                <div class="filter-input">
+                  <div class="input-group">
+                    <!--                <input [(ngModel)]="stateMap.get('filter')" (ngModelChange)="stateMap.set('filter', $event)" placeholder="Type to filter states..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >-->
+                    <input [(ngModel)]="stateMap['filter']" (ngModelChange)="stateMap.set('filter', $event)" placeholder="Type to filter states..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
+                    <span class="input-group-append">
                   <button class="btn btn-outline-secondary border-left-0 border" type="button" (click)="stateMap.set('filter', '')">
                     <i class="fa fa-times"></i>
                   </button>
                 </span>
-              </div>
-            </div>
-            <div class="geoOptions mt-2 pl-2">
-              <div *ngIf="stateMap.get('states') == null || stateMap.get('states').length == 0" class="noFilters mx-auto py-2 px-1">
-                No States Available
-              </div>
-              <div *ngFor="let state of stateMap.get('states'); let i = index" class="checkbox">
-                <label class="custom-control custom-checkbox list-item" *ngIf="state.name.toLowerCase().includes(stateMap.get('filter').toLowerCase())">
-                  <input type="checkbox" [checked]="state.checked" (change)="state.toggle()" class="custom-control-input" >
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-label list-item-label">{{state.name}}</span>
-                </label>
+                  </div>
+                </div>
+                <div class="geoOptions mt-2 pl-2">
+                  <div *ngIf="stateMap.get('states') == null || stateMap.get('states').length == 0" class="noFilters mx-auto py-2 px-1">
+                    No States Available
+                  </div>
+                  <div *ngFor="let state of stateMap.get('states'); let i = index" class="checkbox">
+                    <label class="custom-control custom-checkbox list-item" *ngIf="state.name.toLowerCase().includes(stateMap.get('filter').toLowerCase())">
+                      <input type="checkbox" [checked]="state.checked" (change)="state.toggle()" class="custom-control-input" >
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-label list-item-label">{{state.name}}</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn mb-4 mr-2 stepButton" (click)="validateState()" matStepperNext>Next</button>
-        </div>
-      </div>
-    </mat-step>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn mb-4 mr-2 stepButton" (click)="validateState()" matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
 
-    <!-- Regions -->
-    <mat-step [stepControl]="regionsComplete">
-      <ng-template matStepLabel>Regions</ng-template>
-      <div class="stepContainer p-3">
-        <div class="row">
-          <div *ngIf="regionMaps.length < 1" class="p-3 noData">
-            No states selected
-          </div>
-          <div *ngFor="let regionMap of regionMaps; let i = index" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 p-2">
-            <h6>{{regionMap.get('stateName')}}</h6>
-            <div class="filter-input">
-              <div class="input-group">
-                <input [(ngModel)]="regionMap['filter']" (ngModelChange)="regionMap.set('filter', $event)" placeholder="Type to filter regions..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
-                <span class="input-group-append">
+        <!-- Regions -->
+        <mat-step [stepControl]="regionsComplete">
+          <ng-template matStepLabel>Regions</ng-template>
+          <div class="stepContainer p-3">
+            <div class="row">
+              <div *ngIf="regionMaps.length < 1" class="p-3 noData">
+                No states selected
+              </div>
+              <div *ngFor="let regionMap of regionMaps; let i = index" class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 p-2">
+                <h6>{{regionMap.get('stateName')}}</h6>
+                <div class="filter-input">
+                  <div class="input-group">
+                    <input [(ngModel)]="regionMap['filter']" (ngModelChange)="regionMap.set('filter', $event)" placeholder="Type to filter regions..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
+                    <span class="input-group-append">
                   <button class="btn btn-outline-secondary border-left-0 border" type="button" (click)="regionMap.set('filter', '')">
                     <i class="fa fa-times"></i>
                   </button>
                 </span>
-              </div>
-            </div>
-            <div class="geoOptions mt-2 pl-2">
-              <div *ngIf="regionMap.get('regions') == undefined" class="lds-ring"><div></div><div></div><div></div><div></div></div>
-              <div *ngIf="regionMap.get('regions') != null && regionMap.get('regions').length == 0" class="noFilters mx-auto py-2 px-1">
-                No Regions Available
-              </div>
-              <div *ngFor="let region of regionMap.get('regions'); let i = index" class="checkbox">
-                <label class="custom-control custom-checkbox list-item" *ngIf="region.name.toLowerCase().includes(regionMap.get('filter').toLowerCase())">
-                  <input type="checkbox" [checked]="region.checked" (change)="region.toggle()" class="custom-control-input" >
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-label list-item-label">{{region.name}}</span>
-                </label>
+                  </div>
+                </div>
+                <div class="geoOptions mt-2 pl-2">
+                  <div *ngIf="regionMap.get('regions') == undefined" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                  <div *ngIf="regionMap.get('regions') != null && regionMap.get('regions').length == 0" class="noFilters mx-auto py-2 px-1">
+                    No Regions Available
+                  </div>
+                  <div *ngFor="let region of regionMap.get('regions'); let i = index" class="checkbox">
+                    <label class="custom-control custom-checkbox list-item" *ngIf="region.name.toLowerCase().includes(regionMap.get('filter').toLowerCase())">
+                      <input type="checkbox" [checked]="region.checked" (change)="region.toggle()" class="custom-control-input" >
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-label list-item-label">{{region.name}}</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn mb-4 mr-2 stepButton" (click)="validateRegions()"  matStepperNext>Next</button>
-        </div>
-      </div>
-    </mat-step>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn mb-4 mr-2 stepButton" (click)="validateRegions()"  matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
 
 
-    <!-- Collab -->
-    <mat-step [stepControl]="collabComplete">
-      <ng-template matStepLabel>Collaborators</ng-template>
-      <div class="stepContainer p-3">
-        <div class="row">
-          <div class="col-xl-6">
-            <h6>Colleagues</h6>
-            <div class="filter-input">
-              <div class="input-group">
-                <input [(ngModel)]="collabMap['filter']" (ngModelChange)="collabMap.set('filter', $event)" placeholder="Type to filter colleagues..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
-                <span class="input-group-append">
+        <!-- Collab -->
+        <mat-step [stepControl]="collabComplete">
+          <ng-template matStepLabel>Collaborators</ng-template>
+          <div class="stepContainer p-3">
+            <div class="row">
+              <div class="col-xl-6">
+                <h6>Colleagues</h6>
+                <div class="filter-input">
+                  <div class="input-group">
+                    <input [(ngModel)]="collabMap['filter']" (ngModelChange)="collabMap.set('filter', $event)" placeholder="Type to filter colleagues..." class="form-control py-2 border-right-0 border filter-input-box" type="text" >
+                    <span class="input-group-append">
                   <button class="btn btn-outline-secondary border-left-0 border" type="button" (click)="collabMap.set('filter', '')">
                     <i class="fa fa-times"></i>
                   </button>
                 </span>
-              </div>
-            </div>
-            <div class="geoOptions mt-2 pl-2">
-              <div *ngIf="collabMap.get('people') == null || collabMap.get('people').length == 0" class="noFilters mx-auto py-2 px-1">
-                No Colleagues Available
-              </div>
-              <div *ngFor="let person of collabMap.get('people'); let i = index" class="checkbox">
-                <label class="custom-control custom-checkbox list-item" *ngIf="person.fullName.toLowerCase().includes(collabMap.get('filter').toLowerCase())">
-                  <input type="checkbox" [checked]="person.checked" (change)="person.toggle()" class="custom-control-input" >
-                  <span class="custom-control-indicator"></span>
-                  <span class="custom-control-label list-item-label">{{person.fullName}}</span>
-                </label>
+                  </div>
+                </div>
+                <div class="geoOptions mt-2 pl-2">
+                  <div *ngIf="collabMap.get('people') == null || collabMap.get('people').length == 0" class="noFilters mx-auto py-2 px-1">
+                    No Colleagues Available
+                  </div>
+                  <div *ngFor="let person of collabMap.get('people'); let i = index" class="checkbox">
+                    <label class="custom-control custom-checkbox list-item" *ngIf="person.fullName.toLowerCase().includes(collabMap.get('filter').toLowerCase())">
+                      <input type="checkbox" [checked]="person.checked" (change)="person.toggle()" class="custom-control-input" >
+                      <span class="custom-control-indicator"></span>
+                      <span class="custom-control-label list-item-label">{{person.fullName}}</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button class="btn mb-4 mr-2 stepButton" (click)="validateCollabs()" matStepperNext>Next</button>
-        </div>
-      </div>
-    </mat-step>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn mb-4 mr-2 stepButton" (click)="validateCollabs()" matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
 
-    <!-- Complete -->
-    <mat-step [completed]="false">
-      <ng-template matStepLabel>Complete</ng-template>
-      <div class="alert alert-success my-3 mx-0" role="alert">
-        <i class="fa fa-check pr-2"></i>
-        Your alert is ready to go!
-      </div>
-      <div>
-        <button class="btn mb-4 mr-2 stepButton complete" mat-button (click)="createAlert()">Complete</button>
-        <button class="btn mb-4 mr-2 stepButton" mat-button [routerLink]="['/alert/list']">Cancel</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+        <!-- Complete -->
+        <mat-step [completed]="false">
+          <ng-template matStepLabel>Complete</ng-template>
+          <div class="alert alert-success my-3 mx-0" role="alert">
+            <i class="fa fa-check pr-2"></i>
+            Your alert is ready to go!
+          </div>
+          <div>
+            <button class="btn mb-4 mr-2 stepButton complete" mat-button (click)="createAlert()">Complete</button>
+            <button class="btn mb-4 mr-2 stepButton" mat-button [routerLink]="['/alert/list']">Cancel</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+  </div>
 </div>
 
+<!-- Loading Overlay -->
+<div id="overlay" *ngIf="isPageLoading">
+  <div id="spinner" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>

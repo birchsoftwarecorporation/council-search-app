@@ -18,6 +18,7 @@ import { AlertModule } from './alert/alert.module';
 import { ContactModule } from './contact/contact.module';
 import { DocumentModule } from './document/document.module';
 import { EventModule } from './event/event.module';
+// import { HelpersModule } from './helpers/helpers.module';
 import { LoginModule } from './login/login.module';
 import { SearchModule } from './search/search.module';
 
@@ -38,6 +39,7 @@ import { SearchModule } from './search/search.module';
     DocumentModule,
     EventModule,
     LoginModule,
+    // HelpersModule,
     SearchModule
   ],
   exports: [ // FYI - https://stackoverflow.com/questions/60221876/angular-material-not-working-in-angular-version-9

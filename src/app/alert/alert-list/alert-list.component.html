@@ -1,10 +1,19 @@
-<div *ngIf="errorMsg != null" class="document container page-body">
-  <div class="row mx-auto pt-4">
+<div class="container pt-5 pb-3">
+  <div class="row">
+    <div class="col-12">
+      <h2>Alerts</h2>
+      <hr class="header">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="errorMsg != null" class="row mx-auto pt-4">
     <p class="errorMsg p-3">{{errorMsg}}</p>
   </div>
 </div>
-<!-- Alerts list -->
-<div *ngIf="success" id="alerts" class="container-fluid page-body">
+
+<div *ngIf="success" class="container">
   <div class="row mx-auto">
     <div class="card" *ngFor="let alert of alerts">
       <img class="card-img-top" src="../../../assets/images/cityscapes/{{alert.imgNum}}.jpg" alt="City Image">
@@ -32,6 +41,7 @@
     </div>
   </div>
 </div>
+
 <!-- Loading Overlay -->
 <div id="overlay" *ngIf="isPageLoading">
   <div id="spinner" class="spinner-border" role="status">

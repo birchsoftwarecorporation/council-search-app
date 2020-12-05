@@ -1,36 +1,36 @@
-<!-- Document -->
-<div *ngIf="errorMsg != null" class="document container page-body">
-  <div class="row mx-auto pt-4">
+<div class="container pt-5 pb-3">
+  <div class="row">
+    <div class="col-12">
+<!--      <h2 *ngIf="document == null || document.title == null || document.title == ''" >Document</h2>-->
+      <h2 *ngIf="document != null && document.title != ''" >{{document.title}}</h2>
+      <hr class="header">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="errorMsg != null" class="row mx-auto pt-4">
     <p class="errorMsg p-3">{{errorMsg}}</p>
   </div>
 </div>
-<div *ngIf="success" class="document container page-body">
+
+<div *ngIf="success" class="container">
   <div class="row">
-    <div class="col-xl-12">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="search-result">
-            <blockquote class="regular-blockquote">
-              <h3 class="docTitle">{{title}}</h3>
-              <hr>
-              <div>
-                <div class="row">
-                  <div class="col-xl-6 pl-3">
-                    <i class="fa fa-calendar-o pr-2"></i>
-                    <span>{{meetingDate | date:'MMMM dd, yyyy'}}</span><br>
-                    <p>{{regionName}}, {{stateAbbr}} - {{documentType}}</p>
-                  </div>
-                  <div class="col-xl-6 pr-3">
-                    <div class="download">
-                      <a (click)="downloadPDF()" class="regular-btn darker radius">Download PDF <i class="fa fa-download"></i></a>
-                      <!--                      <a href="{{baseUrl}}/s3/download/{{uuid}}" (click)="showToaster()" class="regular-btn darker radius">Download PDF <i class="fa fa-download"></i></a>-->
-                    </div>
-                  </div>
-                </div>
-                <div class="result-content" [innerHTML]="content"></div>
-              </div>
-            </blockquote>
-          </div>
+    <div class="col-xl-6 pl-3">
+      <i class="fa fa-calendar-o pr-2"></i>
+      <span>{{document.meetingDate | date:'MMMM dd, yyyy'}}</span><br>
+      <p>{{document.regionName}}, {{document.stateAbbr}} - {{document.documentType}}</p>
+    </div>
+    <div class="col-xl-6 pr-3">
+      <div class="download">
+        <a (click)="downloadPDF()" class="regular-btn darker radius">Download PDF <i class="fa fa-download"></i></a>
+      </div>
+    </div>
+  <div class="row w-100">
+    <div class="col-12">
+      <div class="document-container p-3 m-1">
+        <div class="document-content p-5">
+          <div [innerHTML]="document.content"></div>
         </div>
       </div>
     </div>
@@ -38,9 +38,12 @@
 </div>
 <!-- document end -->
 
-<!-- Loading Overlay -->
-<div id="overlay" *ngIf="isPageLoading">
-  <div id="spinner" class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
+<!-- Loading Overlay
+  No Page loading here just in case google site map doesnt wait to scrap
+ -->
+
+<!--<div id="overlay" *ngIf="isPageLoading">-->
+<!--  <div id="spinner" class="spinner-border" role="status">-->
+<!--    <span class="sr-only">Loading...</span>-->
+<!--  </div>-->
+<!--</div>-->

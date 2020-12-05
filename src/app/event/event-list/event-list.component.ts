@@ -25,7 +25,8 @@ export class EventListComponent implements OnInit {
     // Parse the results
     this.eventService.list().subscribe(data => {
       if (data == undefined || data == null) {
-        this.errorMsg = data['Error'];
+        console.log(data['Error']);
+        this.errorMsg = "Could not load events list";
         this.success = false;
       } else {
         this.buildEvents(data);
@@ -34,7 +35,7 @@ export class EventListComponent implements OnInit {
       this.isPageLoading = false;
     },(error) => {
       console.log(error);
-      this.errorMsg = "Could not load event list";
+      this.errorMsg = "Could not load events list";
       this.isPageLoading = false;
       this.success = false;
     });

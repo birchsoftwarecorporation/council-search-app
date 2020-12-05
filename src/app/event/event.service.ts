@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
 export class EventService {
 
   private HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-  private REST_API_URL = environment.protocol+"://"+environment.domain
+  private REST_API_URL = environment.protocol+"://"+environment.domain;
 
   constructor(private http: HttpClient) { }
 

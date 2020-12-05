@@ -18,6 +18,7 @@ import { Person } from '../../person/person.model';
 export class EventShowComponent implements OnInit {
 
   event: Event;
+  uuid: string;
   members = new Array<Person>();
   newComment: string;
 
@@ -29,13 +30,12 @@ export class EventShowComponent implements OnInit {
 
   constructor(private actRoute: ActivatedRoute, private eventService: EventService, private toastr: ToastrService) {
     // Grab the event id from active route
-    this.event = new Event();
-    this.event.uuid = this.actRoute.snapshot.params.uuid;
+    this.uuid = this.actRoute.snapshot.params.uuid;
   }
 
   ngOnInit(): void {
     // Grab this events members
-    this.eventService.getMembers(this.event.uuid).subscribe(data => {
+    this.eventService.getMembers(this.uuid).subscribe(data => {
       if (data == undefined || data == null) {
         // this.errorMsg = data['Error'];
       } else {
@@ -44,12 +44,13 @@ export class EventShowComponent implements OnInit {
     })
 
     // Parse the results
-    this.eventService.get(this.event.uuid).subscribe(data => {
-
+    this.eventService.get(this.uuid).subscribe(data => {
       if (data == undefined || data == null) {
-        this.errorMsg = data['Error'];
+        console.log(data['Error']);
+        this.errorMsg = "Could not load event";
         this.success = false;
       } else {
+        this.event = new Event();
         this.event.build(data);
         this.success = true;
       }

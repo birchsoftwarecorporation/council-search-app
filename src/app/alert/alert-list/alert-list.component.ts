@@ -6,8 +6,6 @@ import {ToastrService} from 'ngx-toastr';
 import { Alert } from '../models/alert.model';
 import { AlertService } from '../alert.service';
 
-
-
 @Component({
   selector: 'app-alert-list',
   templateUrl: './alert-list.component.html',
@@ -28,7 +26,8 @@ export class AlertListComponent implements OnInit {
     // Parse the results
     this.alertService.list().subscribe(data => {
       if (data == undefined || data == null) {
-        this.errorMsg = data['Error'];
+        console.log(data['Error']);
+        this.errorMsg = "Could not load alert list";
         this.success = false;
       } else {
         for (let alertObj of data) {

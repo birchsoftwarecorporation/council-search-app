@@ -1,12 +1,19 @@
-<div *ngIf="errorMsg != null" class="document container page-body">
-  <div class="row mx-auto pt-4">
+<div class="container pt-5 pb-3">
+  <div class="row">
+    <div class="col-12">
+      <h2>Events</h2>
+      <hr class="header">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngIf="errorMsg != null" class="row mx-auto pt-4">
     <p class="errorMsg p-3">{{errorMsg}}</p>
   </div>
 </div>
-<div *ngIf="success" class="container pt-5 pb-5">
-  <div class="eventToolbar rounded p-2">
-    Events: All
-  </div>
+
+<div *ngIf="success" class="container">
   <div *ngIf="events == null || events.length == 0" class="row">
     <div class="col-12">
       <p class="noEventsMsg text-center">No events yet!</p>
@@ -52,7 +59,7 @@
         <button [routerLink]="['/event/show/', event.uuid]" class="btn btn-primary readMore">View Event</button>
       </div>
     </div>
-    <hr>
+    <hr class="eventSeparator">
   </div>
 </div>
 

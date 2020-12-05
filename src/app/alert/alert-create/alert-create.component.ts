@@ -20,7 +20,10 @@ import { Person } from '../../person/person.model';
 })
 export class AlertCreateComponent implements OnInit {
   // Page Controls
-  isPageLoading = false; // TODO - make this a component
+  isPageLoading: boolean; // TODO - make this a component
+  errorMsg: string;
+  success: boolean;
+
   nameError = "";
   phraseError = "";
   stateFilterText = "";
@@ -42,22 +45,44 @@ export class AlertCreateComponent implements OnInit {
   constructor(private router:Router, private alertService: AlertService, private stateService: StateService, private regionService: RegionService, private personService: PersonService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.isPageLoading = true; // TODO - make this a component
+
     // Parse the state results
     this.stateService.list().subscribe(data => {
       if (data == undefined || data == null) {
-        // this.errorMsg = data['Error'];
+        this.errorMsg = data['Error'];
+        this.success = false;
       } else {
         this.buildStates(data);
+        // Guess we will just put this here?
+        this.errorMsg = null;
+        this.isPageLoading = false;
+        this.success = true;
       }
-    })
+    },(error) => {
+      console.log(error);
+      this.errorMsg = "Could not load States";
+      this.isPageLoading = false;
+      this.success = false;
+    });
 
     this.personService.list().subscribe(data => {
       if (data == undefined || data == null) {
-        // this.errorMsg = data['Error'];
+        this.errorMsg = data['Error'];
+        this.success = false;
       } else {
         this.buildCollab(data);
+        // Guess we will just put this here?
+        this.errorMsg = null;
+        this.success = true;
       }
-    })
+      this.isPageLoading = false;
+    },(error) => {
+      console.log(error);
+      this.errorMsg = "Could not load collaborators";
+      this.isPageLoading = false;
+      this.success = false;
+    });
   }
 
   validateDetails(){
