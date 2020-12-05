@@ -164,24 +164,24 @@ body{
 }
 
 .search-zone {
-  padding-top: 50px
+  /*padding-top: 50px*/
 }
 
 @media (max-width:767px) {
   .search-zone {
-    padding-top: 60px
+    /*padding-top: 60px*/
   }
 }
 
 @media (min-width:768px) and (max-width:991px) {
   .search-zone {
-    padding-top: 80px
+    /*padding-top: 80px*/
   }
 }
 
 @media (min-width:992px) and (max-width:1200px) {
   .search-zone {
-    padding-top: 100px
+    /*padding-top: 100px*/
   }
 }
 
@@ -442,24 +442,24 @@ body{
 /* Search Zone */
 
 .search-zone {
-  padding-top: 50px
+  /*padding-top: 50px*/
 }
 
 @media (max-width:767px) {
   .search-zone {
-    padding-top: 60px
+    /*padding-top: 60px*/
   }
 }
 
 @media (min-width:768px) and (max-width:991px) {
   .search-zone {
-    padding-top: 80px
+    /*padding-top: 80px*/
   }
 }
 
 @media (min-width:992px) and (max-width:1200px) {
   .search-zone {
-    padding-top: 100px
+    /*padding-top: 100px*/
   }
 }
 
