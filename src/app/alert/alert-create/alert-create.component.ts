@@ -124,7 +124,12 @@ export class AlertCreateComponent implements OnInit {
 
   addPhrase(){
     if(this.tempPhrase != ""){
-      this.alert.phrases.push(this.tempPhrase);
+      let phraseList = this.tempPhrase.split(',');
+
+      for(let phrase of phraseList){
+        // console.log("Adding phrase: "+phrase.trim());
+        this.alert.phrases.push(phrase.trim());
+      }
     }
     this.tempPhrase = "";
   }
