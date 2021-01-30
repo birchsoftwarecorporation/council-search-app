@@ -8,7 +8,6 @@ jobs:
         docker:
             - image: circleci/node:15.6.0-browsers
 
-        working_directory: /tmp
         steps:
 
             # Checkout the code from the branch into the working_directory
@@ -43,24 +42,24 @@ jobs:
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        echo "npm run build" > /tmp/artifact-1;
+                        echo "npm run build" > ~/project/artifact-1;
                     else
                         npm run build-dev
                     fi
 
             - store_artifacts:
-                path: /tmp/artifact-1
+                path: ~/project/artifact-1
                 destination: artifact-file
 
             - run:
                 name: Compress Artifacts
                 command: |
                     ls artifactfile
-                    tar -cvzf myartifact.tar artifactfile
+                    tar -cvzf myartifact.tar ~/project/artifact-1
 
             - store_artifacts: 
                 path: myartifact.tar
-                destination: artifact_name
+                destination: artifact_file
 
             - persist_to_workspace:
                 root: .
