@@ -49,7 +49,9 @@ jobs:
 
             - run:
                 name: Compress Artifacts
-                command: tar -cvzf myartifact.tar /tmp/artifactfile
+                command: |
+                    ls /tmp/artifactfile
+                    tar -cvzf myartifact.tar /tmp/artifactfile
 
             - store_artifacts: 
                 path: myartifact.tar
