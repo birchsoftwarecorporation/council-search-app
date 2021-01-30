@@ -35,33 +35,17 @@ jobs:
                 paths:
                     - node_modules
 
-            # # Lint the source code
-            # - run:
-            #     name: Linting
-            #     command: npm run lint
-
-            # # Test the source code
-            # - run:
-            #     name: Testing
-            #     command: npm run test
-
-            # # End to End test
-            # - run:
-            #     name: End to End Test
-            #     command: npm run e2e -- --protractor-config=e2e/protractor.conf.js
-
             # Build project with different configuration based on
             # the current branch (qa, staging or prod basing on brnaches pushed)
             - run:
-                name: Building
+                name: Building artifacts
                 command: |
-                    if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-                        npm run build-qa
-                    elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        npm run build
-                    else
-                        npm run build-dev
-                    fi
+                    npm run build
+                    mkdir tmp && zip -r tmp/build.zip build
+                - persist_to_workspace:
+                    root: .
+                    paths:
+                        - 'tmp'
 
             # Cache the dist folder for pther job
             - save_cache:
