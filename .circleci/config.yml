@@ -38,13 +38,23 @@ jobs:
             - run:
                 name: Building artifacts
                 command: |
+                    mkdir /tmp/artifacts
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        npm run build
+                        npm run build > /tmp/artifactfile
                     else
                         npm run build-dev
                     fi
+
+            - store_artifacts:
+                path: /tmp/artifactfile
+                destination: artifact-file
+
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - .
 
             # Cache the dist folder for pther job
             - save_cache:
