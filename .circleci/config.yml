@@ -49,6 +49,7 @@ jobs:
 
             - store_artifacts:
                 path: ~/project/artifact-1
+                destination: angular
 
             - persist_to_workspace:
                 root: .
