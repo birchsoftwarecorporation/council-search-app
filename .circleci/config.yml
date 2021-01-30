@@ -42,10 +42,10 @@ jobs:
                 command: |
                     npm run build
                     mkdir tmp && zip -r tmp/build.zip build
-                - persist_to_workspace:
-                    root: .
-                    paths:
-                        - 'tmp'
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - 'tmp'
 
             # Cache the dist folder for pther job
             - save_cache:
