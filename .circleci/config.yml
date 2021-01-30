@@ -35,10 +35,10 @@ jobs:
                 paths:
                     - node_modules
 
-            # Lint the source code
-            - run:
-                name: Linting
-                command: npm run lint
+            # # Lint the source code
+            # - run:
+            #     name: Linting
+            #     command: npm run lint
 
             # Test the source code
             - run:
@@ -48,7 +48,7 @@ jobs:
             # End to End test
             - run:
                 name: End to End Test
-                command: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+                command: npm run e2e -- --protractor-config=e2e/protractor.conf.js
 
             # Build project with different configuration based on
             # the current branch (qa, staging or prod basing on brnaches pushed)
