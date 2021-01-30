@@ -35,17 +35,16 @@ jobs:
                 paths:
                     - node_modules
 
-            # Build project with different configuration based on
-            # the current branch (qa, staging or prod basing on brnaches pushed)
             - run:
                 name: Building artifacts
                 command: |
-                    npm run build
-                    mkdir tmp && zip -r tmp/build.zip build
-            - persist_to_workspace:
-                root: .
-                paths:
-                    - 'tmp'
+                    if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                        npm run build-qa
+                    elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        npm run build
+                    else
+                        npm run build-dev
+                    fi
 
             # Cache the dist folder for pther job
             - save_cache:
