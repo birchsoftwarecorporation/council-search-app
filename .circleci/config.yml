@@ -45,10 +45,10 @@ jobs:
             #     name: Testing
             #     command: npm run test
 
-            # End to End test
-            - run:
-                name: End to End Test
-                command: npm run e2e -- --protractor-config=e2e/protractor.conf.js
+            # # End to End test
+            # - run:
+            #     name: End to End Test
+            #     command: npm run e2e -- --protractor-config=e2e/protractor.conf.js
 
             # Build project with different configuration based on
             # the current branch (qa, staging or prod basing on brnaches pushed)
