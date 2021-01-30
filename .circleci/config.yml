@@ -50,10 +50,10 @@ jobs:
             - run:
                 name: Compress Artifacts
                 command: |
-                    tar -cvzf myartifact.tar ~/project/artifact-1
+                    tar -cvzf myartifact.tar -P ~/project/artifact-1
 
             - store_artifacts:
-                path: ~/project/artifact-1
+                path: myartifact.tar
                 destination: searchapp
 
             - persist_to_workspace:
