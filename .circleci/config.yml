@@ -47,9 +47,13 @@ jobs:
                         npm run build-dev
                     fi
 
+            name: Compress Artifacts
+            command: |
+                tar -cvzf myartifact.tar ~/project/artifact-1
+
             - store_artifacts:
                 path: ~/project/artifact-1
-                destination: angular
+                destination: searchapp
 
             - persist_to_workspace:
                 root: .
