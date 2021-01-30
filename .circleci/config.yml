@@ -49,17 +49,6 @@ jobs:
 
             - store_artifacts:
                 path: ~/project/artifact-1
-                destination: artifact-file
-
-            - run:
-                name: Compress Artifacts
-                command: |
-                    ls artifactfile
-                    tar -cvzf myartifact.tar ~/project/artifact-1
-
-            - store_artifacts: 
-                path: myartifact.tar
-                destination: artifact_file
 
             - persist_to_workspace:
                 root: .
