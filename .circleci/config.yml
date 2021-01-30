@@ -47,8 +47,12 @@ jobs:
                         npm run build-dev
                     fi
 
+            - run:
+                name: Compress Artifacts
+                command: tar -cvzf myartifact.tar /tmp/artifactfile
+
             - store_artifacts:
-                path: /tmp/artifactfile
+                path: myartifact.tar
                 destination: artifact-file
 
             - persist_to_workspace:
