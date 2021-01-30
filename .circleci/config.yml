@@ -42,7 +42,7 @@ jobs:
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        npm run build > /tmp/artifactfile
+                        npm run build > artifactfile
                     else
                         npm run build-dev
                     fi
@@ -50,8 +50,8 @@ jobs:
             - run:
                 name: Compress Artifacts
                 command: |
-                    ls /tmp/artifactfile
-                    tar -cvzf myartifact.tar /tmp/artifactfile
+                    ls artifactfile
+                    tar -cvzf myartifact.tar artifactfile
 
             - store_artifacts: 
                 path: myartifact.tar
