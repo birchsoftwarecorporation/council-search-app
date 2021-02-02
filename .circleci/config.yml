@@ -66,8 +66,8 @@ jobs:
                     - dist
 
             - store_artifacts:
-                path: ~/project/dist
-                destination: ~/project/dist/council-search-app
+                path: /home/circleci/project/dist/council-search-app
+                destination: /home/circleci/project/dist/council-search-app
 
 workflows:
     version: 2
