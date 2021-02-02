@@ -42,7 +42,7 @@ jobs:
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        sudo npm install -g @angular/cli && ng build > ~/project/artifact
+                        sudo npm install -g @angular/cli && ng build --prod > ~/project/artifact
                     else
                         npm run build-dev
                     fi
