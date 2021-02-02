@@ -59,14 +59,14 @@ jobs:
                 paths:
                     - dist
 
-            - run:
-                name: Compress Artifacts
-                command: |
-                    zip -r council-search-app.zip dist
+            # - run:
+            #     name: Compress Artifacts
+            #     command: |
+            #         zip -r council-search-app.zip dist
 
 
             - store_artifacts:
-                path: council-search-app.zip
+                path: dist
                 destination: council-search-app.zip
 
 workflows:
