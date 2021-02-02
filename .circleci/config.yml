@@ -42,7 +42,7 @@ jobs:
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        npm install angular-cli@latest -g && ng build > council-search-app
+                        sudo npm install -g @angular/cli && ng build > council-search-app
                     else
                         npm run build-dev
                     fi
