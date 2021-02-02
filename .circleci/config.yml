@@ -37,11 +37,12 @@ jobs:
 
             - run:
                 name: Building artifacts
-                command: 
+                command: |
+                    mkdir /tmp/artifacts
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        sudo npm install -g @angular/cli && ng build > ~/project/artifacts
+                        sudo npm install -g @angular/cli && ng build > ~/project/artifact
                     else
                         npm run build-dev
                     fi
@@ -52,7 +53,7 @@ jobs:
             #         tar -cvzf myartifact.tar -P ~/project/artifact-1
 
             - store_artifacts:
-                path: ~/project/artifacts
+                path: ~/project/artifact
                 destination: council-search-app
 
             - persist_to_workspace:
