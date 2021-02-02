@@ -42,19 +42,19 @@ jobs:
                     if [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                        npm run build > ~/project/artifact-1
+                        ng build > council-search-app
                     else
                         npm run build-dev
                     fi
 
-            - run:
-                name: Compress Artifacts
-                command: |
-                    tar -cvzf myartifact.tar -P ~/project/artifact-1
+            # - run:
+            #     name: Compress Artifacts
+            #     command: |
+            #         tar -cvzf myartifact.tar -P ~/project/artifact-1
 
             - store_artifacts:
-                path: myartifact.tar
-                destination: searchapp
+                path: council-search-app
+                destination: council-search-app
 
             - persist_to_workspace:
                 root: .
