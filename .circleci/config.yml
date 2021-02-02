@@ -47,13 +47,7 @@ jobs:
                     else
                         npm run build-dev
                     fi
-            # "ng build --prod; zip -r dist/council-search-app.zip dist/council-search-app;",
-
-            # - run:
-            #     name: Compress Artifacts
-            #     command: |
-            #         tar -cvzf myartifact.tar -P ~/project/artifact-1
-
+            
             - persist_to_workspace:
                 root: .
                 paths:
@@ -65,9 +59,15 @@ jobs:
                 paths:
                     - dist
 
+            - run:
+                name: Compress Artifacts
+                command: |
+                    zip -r council-search-app.zip dist
+
+
             - store_artifacts:
-                path: ~/project/dist
-                destination: councilsearchapp
+                path: council-search-app.zip
+                destination: council-search-app.zip
 
 workflows:
     version: 2
