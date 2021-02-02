@@ -67,7 +67,7 @@ jobs:
 
             - store_artifacts:
                 path: ~/project/dist
-                destination: council-search-app
+                destination: ~/project/dist/council-search-app
 
 workflows:
     version: 2
