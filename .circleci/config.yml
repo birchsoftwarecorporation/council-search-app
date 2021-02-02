@@ -59,10 +59,10 @@ jobs:
                 paths:
                     - dist
 
-            # - run:
-            #     name: Compress Artifacts
-            #     command: |
-            #         zip -r council-search-app.zip dist
+            - run:
+                name: Compress Artifacts
+                command: |
+                    mkdir searchapp && zip -r council-search-app.zip searchapp
 
 
             - store_artifacts:
