@@ -51,22 +51,27 @@ jobs:
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
-                    - dist > ~/project/council-search-app
+                    - dist
+
+            - run:
+                name: Redirect dist to a new folder
+                command: |
+                    /home/circleci/project/dist > council-search-app
 
             - run:
                 name: Compress Artifacts
                 command: |
-                    mkdir searchapp && zip -r council-search-app.zip ~/project/council-search-app
+                    zip -r council-search-app.zip council-search-app
 
 
             - store_artifacts:
                 path: council-search-app.zip
-                # destination: searchapp
+                destination: council-search-app.zip
 
-            - persist_to_workspace:
-                root: .
-                paths:
-                    - .
+                - persist_to_workspace:
+                    root: .
+                    paths:
+                        - .
     
 
 workflows:
