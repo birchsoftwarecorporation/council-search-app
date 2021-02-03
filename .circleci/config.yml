@@ -56,7 +56,7 @@ jobs:
             - run:
                 name: Redirect dist to a new folder
                 command: |
-                    /home/circleci/project/dist > council-search-app
+                    /home/circleci/project/dist/council-search-app > council-search-app
 
             - run:
                 name: Compress Artifacts
@@ -68,10 +68,10 @@ jobs:
                 path: council-search-app.zip
                 destination: council-search-app.zip
 
-                - persist_to_workspace:
-                    root: .
-                    paths:
-                        - .
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - .
     
 
 workflows:
