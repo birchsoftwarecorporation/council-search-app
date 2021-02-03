@@ -67,8 +67,8 @@ jobs:
 
 
             - store_artifacts:
-                path: ~/project/council-search-app.zip
-                destination: council-search-app.zip
+                path: council-search-app.zip
+                destination: council-search-app
 
             - persist_to_workspace:
                 root: .
