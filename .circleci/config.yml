@@ -56,12 +56,13 @@ jobs:
             - run:
                 name: Redirect dist to a new folder
                 command: |
-                    /home/circleci/project/dist/council-search-app > council-search-app
+                    mkdir ~/project/council-search-app
+                    mv /home/circleci/project/dist/council-search-app > ~/project/council-search-app
 
             - run:
                 name: Compress Artifacts
                 command: |
-                    zip -r council-search-app.zip council-search-app
+                    zip -r council-search-app.zip ~/project/council-search-app
 
 
             - store_artifacts:
