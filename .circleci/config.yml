@@ -56,7 +56,7 @@ jobs:
             - run:
                 name: Compress Artifacts
                 command: |
-                    mkdir searchapp && zip -r council-search-app.zip council-search-app
+                    mkdir searchapp && zip -r council-search-app.zip ~/project/council-search-app
 
 
             - store_artifacts:
