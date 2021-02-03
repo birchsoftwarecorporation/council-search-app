@@ -58,11 +58,12 @@ jobs:
                 command: |
                     mkdir ~/project/council-search-app
                     mv /home/circleci/project/dist/council-search-app ~/project/council-search-app
+                    ls ~/project/council-search-app
 
             - run:
                 name: Compress Artifacts
                 command: |
-                    zip -r council-search-app.zip ~/project/council-search-app
+                    zip -r ~/project/council-search-app.zip ~/project/council-search-app
 
 
             - store_artifacts:
