@@ -56,19 +56,19 @@ jobs:
             - run:
                 name: Redirect dist to a new folder
                 command: |
-                    mkdir ~/project/council-search-app
-                    mv /home/circleci/project/dist/council-search-app ~/project/council-search-app
-                    ls ~/project/council-search-app
+                    mkdir home/circleci/project/council-search-app
+                    mv /home/circleci/project/dist/council-search-app/council-search-app home/circleci/project/council-search-app
+                    ls home/circleci/project/council-search-app
 
             - run:
                 name: Compress Artifacts
                 command: |
-                    zip -r ~/project/council-search-app.zip ~/project/council-search-app
+                    zip -r home/circleci/project/council-search-app.zip home/circleci/project/council-search-app
 
 
             - store_artifacts:
-                path: ~/project/council-search-app.zip
-                destination: ~/project/council-search-app.zip
+                path: home/circleci/project/council-search-app.zip
+                # destination: ~/project/council-search-app.zip
 
             - persist_to_workspace:
                 root: .
