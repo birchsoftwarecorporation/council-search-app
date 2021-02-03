@@ -43,16 +43,10 @@ jobs:
                         npm run build-qa
                     elif [ "${CIRCLE_BRANCH}" == "master" ]; then
                         sudo npm install -g @angular/cli && ng build --prod
-                        ls dist
                     else
                         npm run build-dev
                     fi
             
-            - persist_to_workspace:
-                root: .
-                paths:
-                    - .
-
             # Cache the dist folder for pther job
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
@@ -67,7 +61,13 @@ jobs:
 
             - store_artifacts:
                 path: dist/council-search-app
-                destination: council-search-app.zip
+                destination: searchapp
+
+            - persist_to_workspace:
+                root: .
+                paths:
+                    - .
+    
 
 workflows:
     version: 2
