@@ -57,7 +57,7 @@ jobs:
                 name: Redirect dist to a new folder
                 command: |
                     mkdir ~/project/council-search-app
-                    mv /home/circleci/project/dist/council-search-app > ~/project/council-search-app
+                    mv /home/circleci/project/dist/council-search-app ~/project/council-search-app
 
             - run:
                 name: Compress Artifacts
