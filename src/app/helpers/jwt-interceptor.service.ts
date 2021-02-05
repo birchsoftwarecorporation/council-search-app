@@ -13,15 +13,13 @@ import { LoginService } from '../login/login.service';
 })
 export class JwtInterceptorService implements HttpInterceptor {
 
-  private REST_API_URL = environment.protocol+"://"+environment.domain
-
   constructor(private loginService: LoginService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add auth header with jwt if user is logged in and request is to the api url
     const user = this.loginService.getCurrentUser();
     const isLoggedIn = user && user.access_token;
-    const isApiUrl = request.url.startsWith(this.REST_API_URL);
+    const isApiUrl = request.url.startsWith(environment.BASE_URL);
 
     if (isLoggedIn && isApiUrl) {
       console.log("User logged in");

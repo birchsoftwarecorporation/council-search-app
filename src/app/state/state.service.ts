@@ -9,12 +9,11 @@ import {Observable} from 'rxjs';
 export class StateService {
 
   private HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-  private REST_API_URL = environment.protocol+"://"+environment.domain
 
   constructor(private http: HttpClient) { }
 
   public list(): Observable<any> {
-    return this.http.get<any>(this.REST_API_URL+'/api/guest/state');
+    return this.http.get<any>(environment.BASE_URL+'/api/guest/state');
   }
 
 }

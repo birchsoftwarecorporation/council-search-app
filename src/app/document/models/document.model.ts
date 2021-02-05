@@ -34,4 +34,18 @@ export class Document {
     }
   }
 
+  getSnippet(numChars){
+    let snippet = "";
+
+    if(this.content != null && this.content != ""){
+      if(this.content.length > numChars){
+        snippet = this.content.substring(0, numChars);
+      }else{
+        snippet = this.content;
+      }
+    }
+
+    return snippet
+  }
+
 }

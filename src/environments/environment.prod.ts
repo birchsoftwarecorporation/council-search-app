@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  protocol: 'https',
-  domain: 'data.councilsearch.com'
+  BASE_URL: 'https://data.councilsearch.com/councilsearch'
 };

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import {Meta, Title} from '@angular/platform-browser';
 
 import { DocumentService } from '../document.service';
 import { Document } from '../models/document.model';
-import {Event} from '../../event/models/event.model';
-import {Alert} from '../../alert/models/alert.model';
+import {ContactService} from '../../contact/contact.service';
 
 @Component({
   selector: 'app-document-show',
@@ -22,7 +22,7 @@ export class DocumentShowComponent implements OnInit {
   errorMsg: string;
   success: boolean;
 
-  constructor(private actRoute: ActivatedRoute, private documentService: DocumentService, private toastr: ToastrService) {
+  constructor(private actRoute: ActivatedRoute, private documentService: DocumentService, private toastr: ToastrService, private titleService: Title, private metaTagService: Meta) {
     this.document = new Document();
 
     // Grab it from the active route
@@ -47,6 +47,13 @@ export class DocumentShowComponent implements OnInit {
         this.success = false;
       } else {
         this.document.build(data);
+
+        // Meta data try
+        this.titleService.setTitle(this.document.title);
+        this.metaTagService.updateTag(
+          { name: 'description', content: this.document.getSnippet(155) }
+        );
+
         this.success = true;
       }
       // this.isPageLoading = false;

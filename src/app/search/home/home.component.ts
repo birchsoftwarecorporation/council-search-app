@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormControl } from '@angular/forms';
 import { debounceTime, tap, switchMap, finalize, filter } from 'rxjs/operators';
+import { Title, Meta } from '@angular/platform-browser';
+
 
 import { SearchService } from '../../search/search.service';
 import { Suggestion } from '../../search/models/suggestion';
@@ -18,9 +20,14 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   errorMsg: string;
 
-  constructor( private router: Router, private searchService: SearchService ) { }
+  constructor( private router: Router, private searchService: SearchService, private titleService: Title, private metaTagService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Council Search Home");
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Search the latest City Council Agendas and Minutes' }
+    );
+
     this.q.valueChanges.pipe(
       debounceTime(500), // Wait for the person to type
       tap(() => { // Reset errors

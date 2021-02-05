@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, filter, finalize, switchMap, tap } from 'rxjs/operators';
+import {Meta, Title} from '@angular/platform-browser';
+
 import { SearchService } from '../search.service';
+
 import { Suggestion } from '../models/suggestion';
 import { Request } from '../models/request';
 import { Result } from '../models/result';
 import { Filter } from '../models/filter';
+
 
 @Component({
   selector: 'app-search',
@@ -51,9 +55,14 @@ export class MainComponent implements OnInit {
   sorts = ["Upcoming", "Most Relevant"];
   errorMsg: string;
 
-  constructor(private actRoute: ActivatedRoute, private searchService: SearchService) { }
+  constructor(private actRoute: ActivatedRoute, private searchService: SearchService, private titleService: Title, private metaTagService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Search and Refine Documents");
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Search and Refine the most recent City Council meeting Agendas and Minutes' }
+    );
+
     // Get the search query
     this.actRoute.queryParamMap.subscribe(params => {
       if(params.get("q") == null){
@@ -146,24 +155,15 @@ export class MainComponent implements OnInit {
     let startMoment = this.startDate?.value;
 
     if(startMoment != null){
-      // console.log("startMoment is NOT null");
-      // Swap to the begining of the day (in case)
-      startMoment.hours(0);
-      startMoment.minutes(0);
-      startMoment.seconds(0);
-      // console.log("startDate: "+startMoment.format("YYYY-MM-DDTHH:mm:ss"));
-      this.csRequest.startDateStr = startMoment.format("YYYY-MM-DDTHH:mm:ss");
+      console.log("startDate: "+startMoment.format("YYYY-MM-DD"));
+      this.csRequest.startDateStr = startMoment.format("YYYY-MM-DD");
     }
 
     let endMoment = this.endDate?.value;
 
     if(endMoment != null){
-      // Swap to the end of the day
-      endMoment.hours(23);
-      endMoment.minutes(59);
-      endMoment.seconds(59);
-      // console.log("endMoment: "+endMoment.format("YYYY-MM-DDTHH:mm:ss"));
-      this.csRequest.endDateStr = endMoment.format("YYYY-MM-DDTHH:mm:ss");
+      console.log("endMoment: "+endMoment.format("YYYY-MM-DD"));
+      this.csRequest.endDateStr = endMoment.format("YYYY-MM-DD");
     }
 
     // Parse the results

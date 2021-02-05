@@ -8,16 +8,14 @@ import {Observable} from 'rxjs';
 })
 export class DocumentService {
 
-  private REST_API_URL = environment.protocol+"://"+environment.domain
-
   constructor(private http: HttpClient) { }
 
   public get(uuid): Observable<any>{
-    return this.http.get<any>(this.REST_API_URL+'/api/guest/document/'+ uuid);
+    return this.http.get<any>(environment.BASE_URL+'/api/guest/document/'+ uuid);
   }
 
   public pdf(uuid): Observable<Blob>{
-    return this.http.get(this.REST_API_URL+'/api/guest/s3/download/'+ uuid, {
+    return this.http.get(environment.BASE_URL+'/api/guest/s3/download/'+ uuid, {
       responseType: 'blob'
     });
   }

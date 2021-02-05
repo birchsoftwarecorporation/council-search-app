@@ -8,12 +8,11 @@ import {Observable} from 'rxjs';
 })
 export class RegionService {
   private HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-  private REST_API_URL = environment.protocol+"://"+environment.domain
 
   constructor(private http: HttpClient) { }
 
   public getRegions(abbr): Observable<any> {
-    return this.http.get<any>(this.REST_API_URL+'/api/guest/state/'+abbr+'/regions');
+    return this.http.get<any>(environment.BASE_URL+'/api/guest/state/'+abbr+'/regions');
   }
 
 }

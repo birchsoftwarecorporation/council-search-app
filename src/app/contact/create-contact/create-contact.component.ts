@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Meta, Title} from '@angular/platform-browser';
 
 import { ContactService } from '../contact.service';
 import { Contact } from '../models/contact.model'
@@ -9,12 +10,20 @@ import { Contact } from '../models/contact.model'
   templateUrl: './create-contact.component.html',
   styleUrls: ['./create-contact.component.css']
 })
-export class CreateContactComponent{
+export class CreateContactComponent implements OnInit {
 
   contact = new Contact();
   errorMsg: string;
 
-  constructor(private router: Router, private contactService: ContactService) { }
+  constructor(private router: Router, private contactService: ContactService, private titleService: Title, private metaTagService: Meta) { }
+
+  ngOnInit() {
+    this.titleService.setTitle("Contact Us");
+    this.metaTagService.updateTag(
+      { name: 'description', content: 'Contact us about our nightly monitoring service, to add a new city or just general questions' }
+    );
+  }
+
 
   sendContact(){
     this.contact.type = "contact";

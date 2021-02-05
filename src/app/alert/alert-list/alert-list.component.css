@@ -55,7 +55,9 @@ hr.header{
   padding-right: 0;
 }
 
-
+.card-body .card-title{
+  color: #212529;
+}
 
 /* Error/Loading stuff */
 .errorMsg {

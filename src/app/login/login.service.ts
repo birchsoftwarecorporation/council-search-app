@@ -15,7 +15,6 @@ import { User } from './models/user.model';
 
 export class LoginService {
   private HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-  private REST_API_URL = environment.protocol+"://"+environment.domain;
 
   public redirectUrl = '';
 
@@ -35,7 +34,7 @@ export class LoginService {
   }
 
   public login(username, password): Observable<User> {
-    return this.http.post<User>(`${this.REST_API_URL}/api/login`, { username, password }, { headers: this.HTTP_HEADERS })
+    return this.http.post<User>(`${environment.BASE_URL}/api/login`, { username, password }, { headers: this.HTTP_HEADERS })
       .pipe(map(user => {
         if (user && user.access_token && user.refresh_token) {
           this.cookieService.set('user', JSON.stringify(user));

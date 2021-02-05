@@ -10,12 +10,11 @@ import {environment} from '../../environments/environment';
 export class ContactService {
 
   private HTTP_HEADERS = new HttpHeaders().set('Content-Type', 'application/json');
-  private REST_API_URL = environment.protocol+"://"+environment.domain
 
   constructor(private http: HttpClient) { }
 
   public postContact(postData): Observable<any>{
-    return this.http.post(this.REST_API_URL+'/api/guest/contact/', postData, { headers: this.HTTP_HEADERS });
+    return this.http.post(environment.BASE_URL+'/api/guest/contact/', postData, { headers: this.HTTP_HEADERS });
   }
 
 }
