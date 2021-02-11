@@ -18,6 +18,7 @@ import { AlertModule } from './alert/alert.module';
 import { ContactModule } from './contact/contact.module';
 import { DocumentModule } from './document/document.module';
 import { EventModule } from './event/event.module';
+import { MarketingModule } from './marketing/marketing.module';
 // import { HelpersModule } from './helpers/helpers.module';
 import { LoginModule } from './login/login.module';
 import { SearchModule } from './search/search.module';
@@ -39,6 +40,7 @@ import { SearchModule } from './search/search.module';
     DocumentModule,
     EventModule,
     LoginModule,
+    MarketingModule,
     // HelpersModule,
     SearchModule
   ],

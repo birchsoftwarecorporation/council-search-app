@@ -1,1 +1,75 @@
-<p>electric-utility works!</p>
+<div class="">
+    <section class="landing-header">
+        <div class="container">
+            <div class="row flex flex-row mx-0 my-5 py-5">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <p><span class="badge green">NEW</span></p>
+                    <h1 class="text-dark">Lorem Ipsum has been the industry's standard dummy text</h1>
+                    <p class="text-secondary">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
+                    <a class="section-links primary mt-4" href="#">Lorem Ipsum available</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-0 mt-sm-3">
+                    <div class="landing-header-img-wrapper">
+                        <img src="https://d3r49iyjzglexf.cloudfront.net/home/hero-cicd-best-practices-ece8ee5878412c8555aca63e8d678d7369e08bf84abbb9c0e9a9fe53f6de53b7.jpg" alt="" class="img-responsive center">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlight-features">
+        <div class="container">
+            <!-- <div class="pattern-wrapper"> -->
+                <!-- <img src="https://d3r49iyjzglexf.cloudfront.net/home/bg-patterns-c84dbd0446354036a7bb4810356b63e7f9828dd7fe64068f0bd3822044c3c6e7.svg" alt="" aria-hidden="true" class="bg-pattern"> -->
+            <div class="wrapper row mx-0 my-5 py-5 px-3">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3 seperator">
+                    <p class="mb-4"><span class="badge green">Announcement</span></p>
+                    <h4 class="text-dark">Nor gain is there anyone who loves or pursues</h4>
+                    <p class="text-secondary">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
+                    <p class="mb-0"><a href="#">Itaque earum rerum hic</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3 seperator">
+                    <p class="mb-4"><span class="badge green">New</span></p>
+                    <h4 class="text-dark">We denounce with righteous</h4>
+                    <p class="text-secondary">These cases are perfectly simple and easy to distinguish.These cases are perfectly simple and easy to distinguish.</p>
+                    <p class="mb-0"><a href="#">Read more</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3">
+                    <p class="mb-4"><span class="badge blue">Maintenance</span></p>
+                    <h4 class="text-dark">1914 translation by Rackham</h4>
+                    <p class="text-secondary">In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided.</p>
+                    <p class="mb-0"><a href="#">Learn more</a></p>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </section>
+
+    <section class="related-documents">
+        <div class="container">
+            <div class="row mx-0 mt-5 py-5 px-3">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <p class="type-label">Changelog</p>
+                    <h2 class="text-dark">Keep up with the latest documents related to Electric Utilities</h2>
+                    <div class="my-4">
+                        <p>
+                            <a href="#">Go to our cloud changelog</a>
+                            <br>
+                            <a href="#">Go to our server changelog</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <ol class="list">                    
+                        <li class="mb-3 pb-3 border-bottom" *ngFor="let document of relatedDocuments">
+                            <a [href]="document.downloadURL">
+                                <p class="text-secondary text-uppercase">{{document.date}}</p>
+                                <h4 class="text-dark title">{{document.name}}</h4>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
