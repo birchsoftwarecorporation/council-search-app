@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MarketMatch } from '../models/marketMatch.model';
 
 @Component({
   selector: 'app-electric-utility',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ElectricUtilityComponent implements OnInit {
-  
-  private relatedDocuments: Document[] = []
+
+  relatedDocuments = new Array();
 
   constructor() { }
 
@@ -22,11 +23,10 @@ export class ElectricUtilityComponent implements OnInit {
 
 }
 
-interface Document {
-  id: string,
-  name: string,
-  date: string,
-  downloadURL: string
-}
-
+// interface Document {
+//   id: string,
+//   name: string,
+//   date: string,
+//   downloadURL: string
+// }
 

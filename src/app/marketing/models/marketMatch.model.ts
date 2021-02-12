@@ -1,5 +1,5 @@
-export class Event {
-  // Event
+export class MarketMatch {
+  // Market Match
   public id: number;
   public documentTitle: string;
   public meetingDate: Date;

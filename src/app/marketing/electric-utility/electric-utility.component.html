@@ -3,10 +3,9 @@
         <div class="container">
             <div class="row flex flex-row mx-0 my-5 py-5">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <p><span class="badge green">NEW</span></p>
-                    <h1 class="text-dark">Lorem Ipsum has been the industry's standard dummy text</h1>
-                    <p class="text-secondary">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
-                    <a class="section-links primary mt-4" href="#">Lorem Ipsum available</a>
+                    <h1 class="text-dark">Local Government Monitoring for Electric Utilities</h1>
+                    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="section-links primary mt-4" [routerLink]="['/search']">Try it now!</a>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-0 mt-sm-3">
                     <div class="landing-header-img-wrapper">
@@ -19,26 +18,27 @@
 
     <section class="highlight-features">
         <div class="container">
-            <!-- <div class="pattern-wrapper"> -->
-                <!-- <img src="https://d3r49iyjzglexf.cloudfront.net/home/bg-patterns-c84dbd0446354036a7bb4810356b63e7f9828dd7fe64068f0bd3822044c3c6e7.svg" alt="" aria-hidden="true" class="bg-pattern"> -->
             <div class="wrapper row mx-0 my-5 py-5 px-3">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3 seperator">
-                    <p class="mb-4"><span class="badge green">Announcement</span></p>
-                    <h4 class="text-dark">Nor gain is there anyone who loves or pursues</h4>
-                    <p class="text-secondary">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
-                    <p class="mb-0"><a href="#">Itaque earum rerum hic</a></p>
+                <div class="col-12 pb-5">
+                  <h3 class="text-dark">Watches</h3>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3 seperator">
-                    <p class="mb-4"><span class="badge green">New</span></p>
-                    <h4 class="text-dark">We denounce with righteous</h4>
-                    <p class="text-secondary">These cases are perfectly simple and easy to distinguish.These cases are perfectly simple and easy to distinguish.</p>
+                    <p class="mb-4"><span class="badge blue">Infrastructure</span></p>
+                    <h4 class="text-dark">Tortor pretium viverra </h4>
+                    <p class="text-secondary">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
+                    <p class="mb-0"><a href="#">Read more</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3 seperator">
+                    <p class="mb-4"><span class="badge green">Sustainability</span></p>
+                    <h4 class="text-dark">Consequat ac felis donec</h4>
+                    <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Congue nisi vitae suscipit tellus. Facilisis leo vel fringilla est</p>
                     <p class="mb-0"><a href="#">Read more</a></p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 px-3">
-                    <p class="mb-4"><span class="badge blue">Maintenance</span></p>
-                    <h4 class="text-dark">1914 translation by Rackham</h4>
-                    <p class="text-secondary">In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided.</p>
-                    <p class="mb-0"><a href="#">Learn more</a></p>
+                    <p class="mb-4"><span class="badge blue">Fiscal</span></p>
+                    <h4 class="text-dark">Egestas sed tempus urna et</h4>
+                    <p class="text-secondary">Lacus vestibulum sed arcu non odio. Dui sapien eget mi proin sed libero enim. Justo eget magna fermentum iaculis.</p>
+                    <p class="mb-0"><a href="#">Read more</a></p>
                 </div>
             </div>
             <!-- </div> -->
@@ -49,22 +49,22 @@
         <div class="container">
             <div class="row mx-0 mt-5 py-5 px-3">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <p class="type-label">Changelog</p>
+<!--                    <p class="type-label">Changelog</p>-->
                     <h2 class="text-dark">Keep up with the latest documents related to Electric Utilities</h2>
                     <div class="my-4">
-                        <p>
-                            <a href="#">Go to our cloud changelog</a>
-                            <br>
-                            <a href="#">Go to our server changelog</a>
-                        </p>
+                      <a class="section-links primary mt-4" href="#">Explore More</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                    <ol class="list">                    
+                    <ol class="list">
                         <li class="mb-3 pb-3 border-bottom" *ngFor="let document of relatedDocuments">
                             <a [href]="document.downloadURL">
-                                <p class="text-secondary text-uppercase">{{document.date}}</p>
-                                <h4 class="text-dark title">{{document.name}}</h4>
+                              <h4 class="text-dark title">{{document.name}}</h4>
+                              <p class="text-secondary text-uppercase font-italic">Moorseville, NC - {{document.date}}</p>
+                              <p class="text-secondary text-uppercase">
+                                Phase 2 of the Stormwater Master Plan. (Presenters   Assistant Public Works Director Chris Tester and Public Works Administrative Services Manager Michael Hanna) <span class="highlight">Mayor</span> Pro Tem s Comments. COUNCIL MEETING AGENDA   PAGE 3
+                              </p>
+                              <p class="mb-0"><a href="#">Read more</a></p>
                             </a>
                         </li>
                     </ol>
