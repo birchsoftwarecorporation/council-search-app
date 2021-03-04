@@ -18,7 +18,7 @@ export class DocumentShowComponent implements OnInit {
   document: Document;
 
   // Display Stuff
-  // isPageLoading = true; // TODO - make this a component
+  isPageLoading = true; // TODO - make this a component
   errorMsg: string;
   success: boolean;
 
@@ -39,12 +39,12 @@ export class DocumentShowComponent implements OnInit {
 
   ngOnInit(): void {
     // Get the document data
-    // Parse the results
     this.documentService.get(this.uuid).subscribe(data => {
       if (data == undefined || data == null) {
         console.log(data['Error']);
         this.errorMsg = "Could not load document";
         this.success = false;
+        this.isPageLoading = false;
       } else {
         this.document.build(data);
 
@@ -53,14 +53,13 @@ export class DocumentShowComponent implements OnInit {
         this.metaTagService.updateTag(
           { name: 'description', content: this.document.getSnippet(155) }
         );
-
+        this.isPageLoading = false;
         this.success = true;
       }
-      // this.isPageLoading = false;
     },(error) => {
       console.log(error);
       this.errorMsg = "Could not load document";
-      // this.isPageLoading = false;
+      this.isPageLoading = false;
       this.success = false;
     });
   }

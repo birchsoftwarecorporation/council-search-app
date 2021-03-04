@@ -9,7 +9,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
 import { JwtInterceptorService } from './helpers/jwt-interceptor.service';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { AuthGuard } from './helpers/auth-guard.service';
@@ -20,6 +19,7 @@ import { DocumentModule } from './document/document.module';
 import { EventModule } from './event/event.module';
 import { MarketingModule } from './marketing/marketing.module';
 // import { HelpersModule } from './helpers/helpers.module';
+
 import { LoginModule } from './login/login.module';
 import { SearchModule } from './search/search.module';
 
