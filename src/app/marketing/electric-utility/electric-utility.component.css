@@ -1,3 +1,13 @@
+#landing-header{
+  color: #FFFFFF;
+}
+
+.jumbotron {
+  background-image: url("../../../assets/images/electric-utility.jpg");
+  background-size: cover;
+  /*opacity: 0.95;*/
+}
+
 .landing-header-img-wrapper img {
     width: 100%;
 }
@@ -101,4 +111,18 @@
 
 .border-bottom {
     border-bottom: 1px solid #D8D8D8;
+}
+
+button.btn.cs-btn{
+  background-color: #d92027;
+  border: 1px solid #d92027;
+  color: #fff;
+  /*opacity: 0.75;*/
+}
+
+button.btn.cs-btn:hover{
+  background-color: #d92027;
+  border: 1px solid #d92027;
+  color: #fff;
+  /*opacity: 1;*/
 }
