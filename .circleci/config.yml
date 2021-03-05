@@ -46,8 +46,8 @@ jobs:
                     else
                         npm run build-dev
                     fi
-            
-            # Cache the dist folder for pther job
+
+            # Cache the dist folder for other job
             - save_cache:
                 key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
@@ -68,13 +68,13 @@ jobs:
 
             - store_artifacts:
                 path: council-search-app.zip
-                destination: council-search-app
+                destination: council-search-app.zip
 
             - persist_to_workspace:
                 root: .
                 paths:
                     - .
-    
+
 
 workflows:
     version: 2
