@@ -5,7 +5,7 @@ import { ElectricUtilityComponent } from './electric-utility/electric-utility.co
 
 
 const routes: Routes = [
-  { path: 'marketing/electric-utility', component: ElectricUtilityComponent }
+  { path: 'electric-utility', component: ElectricUtilityComponent }
 ];
 
 @NgModule({

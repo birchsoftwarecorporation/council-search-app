@@ -6,7 +6,7 @@ import { ThankYouContactComponent } from './thankyou-contact/thankyou-contact.co
 
 
 const routes: Routes = [
-  { path: 'contact', component: CreateContactComponent },
+  { path: '', component: CreateContactComponent },
   { path: 'thankyou', component: ThankYouContactComponent }
 ];
 

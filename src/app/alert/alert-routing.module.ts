@@ -7,8 +7,8 @@ import { AlertListComponent } from './alert-list/alert-list.component';
 import { AlertCreateComponent } from './alert-create/alert-create.component';
 
 const routes: Routes = [
-  { path: 'alert/list', component: AlertListComponent, canActivate: [AuthGuard] },
-  { path: 'alert/create', component: AlertCreateComponent, canActivate: [AuthGuard] }
+  { path: 'list', component: AlertListComponent, canActivate: [AuthGuard] },
+  { path: 'create', component: AlertCreateComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

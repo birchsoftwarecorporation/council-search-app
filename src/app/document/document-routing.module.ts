@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DocumentShowComponent } from './document-show/document-show.component';
 
 const routes: Routes = [
-  { path: 'document/:uuid', component: DocumentShowComponent }
+  { path: ':uuid', component: DocumentShowComponent }
 ];
 
 @NgModule({

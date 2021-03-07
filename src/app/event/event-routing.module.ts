@@ -7,8 +7,8 @@ import { EventListComponent } from './event-list/event-list.component';
 import { EventShowComponent } from './event-show/event-show.component';
 
 const routes: Routes = [
-  { path: 'event/list', component: EventListComponent, canActivate: [AuthGuard] },
-  { path: 'event/show/:uuid', component: EventShowComponent, canActivate: [AuthGuard] }
+  { path: 'list', component: EventListComponent, canActivate: [AuthGuard] },
+  { path: 'show/:uuid', component: EventShowComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
