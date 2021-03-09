@@ -36,7 +36,7 @@ export class CreateContactComponent implements OnInit {
       }
     })
 
-    this.router.navigate(['/thankyou']);
+    this.router.navigate(['/contact/thankyou']);
   }
 
 }

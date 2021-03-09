@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  BASE_URL: 'https://data.councilsearch.com/councilsearch'
+  BASE_URL: 'http://localhost:8080'
 };
