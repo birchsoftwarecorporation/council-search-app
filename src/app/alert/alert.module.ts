@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AlertRoutingModule } from './alert-routing.module';
@@ -20,15 +19,14 @@ import { AlertShowComponent } from './alert-show/alert-show.component';
     AlertShowComponent
   ],
   imports: [
-    BrowserModule,
     FormsModule,
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
-    AlertRoutingModule
+    AlertRoutingModule,
+    CommonModule
   ]
 })
 
