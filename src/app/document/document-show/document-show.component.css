@@ -33,6 +33,7 @@ hr.header{
   background-color: #ffffff;
   /*padding: 30px;*/
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 /* Error/Loading stuff */
