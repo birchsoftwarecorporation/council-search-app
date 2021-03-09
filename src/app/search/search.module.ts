@@ -7,8 +7,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-
-
 import { SearchRoutingModule } from './search-routing.module';
 
 import { HomeComponent } from './home/home.component';

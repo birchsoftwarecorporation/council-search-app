@@ -1,3 +1,36 @@
+<!-- teaser-zone_start -->
+<div class="teaser-zone teaser-background ">
+  <div class="container">
+    <!-- Search Box -->
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mx-auto">
+        <form class="form-group" (submit)="search()">
+          <div class="input-group">
+            <input id="searchBox" class="form-control py-2" type="search" value="" autocomplete="off" placeholder="Search all agendas and minutes..."
+                   matInput
+                   [formControl]="q"
+                   [matAutocomplete] = "auto">
+            <span (click)="search()" class="input-group-append">
+                  <button class="btn px-4 searchButton" type="button">
+                      <i class="fa fa-search"></i>
+                  </button>
+                </span>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngIf="isSuggestLoading" class="is-loading">Loading suggestions...</mat-option>
+              <ng-container *ngIf="!isSuggestLoading">
+                <mat-option *ngFor="let suggestion of suggestions" [value]="suggestion.name" (click)="suggestClick(suggestion.name)">
+                  {{suggestion.name}}
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- teaser-zone_end -->
+
 <div class="container">
   <div *ngIf="errorMsg != null" class="row mx-auto pt-4">
     <p class="errorMsg p-3">{{errorMsg}}</p>
@@ -13,13 +46,13 @@
   </div>
   <div class="row">
     <div class="col-xl-6 pl-3">
-      <i class="fa fa-calendar-o pr-2"></i>
-      <span>{{document.meetingDate | date:'MMMM dd, yyyy'}}</span><br>
-      <p>{{document.regionName}}, {{document.stateAbbr}} - {{document.documentType}}</p>
+      <div><b>County/City:</b>&nbsp;{{document.regionName}}, {{document.stateAbbr}}</div>
+      <div><b>Meeting Date:</b>&nbsp;{{document.meetingDate | date:'MMMM dd, yyyy'}}</div>
+      <div><b>Document Type:</b>&nbsp;{{document.documentType}}</div>
     </div>
     <div class="col-xl-6 pr-3">
       <div class="download">
-        <a (click)="downloadPDF()" class="regular-btn darker radius">Download PDF <i class="fa fa-download"></i></a>
+        <a (click)="downloadPDF()" class="regular-btn darker radius"><i class="fa fa-download"></i>&nbsp;Original PDF</a>
       </div>
     </div>
   </div>

@@ -28,7 +28,11 @@ export class Document {
     this.documentType = jsonObj.documentType;
 
     if(jsonObj.title != null && jsonObj.title != ""){
-      this.title = jsonObj.title;
+      if(jsonObj.title.length > 40){
+        this.title = jsonObj.title.substring(0, 40) +"...";
+      }else{
+        this.title  = jsonObj.title;
+      }
     }else{
       this.title = "No Title";
     }
@@ -47,5 +51,7 @@ export class Document {
 
     return snippet
   }
+
+
 
 }

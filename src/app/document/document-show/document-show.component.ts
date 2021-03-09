@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {Meta, Title} from '@angular/platform-browser';
+import {debounceTime, filter, finalize, switchMap, tap} from 'rxjs/operators';
 
+import { SearchService } from '../../search/search.service';
+import { Suggestion } from '../../search/models/suggestion';
 import { DocumentService } from '../document.service';
 import { Document } from '../models/document.model';
-import {ContactService} from '../../contact/contact.service';
 
 @Component({
   selector: 'app-document-show',
@@ -13,6 +16,11 @@ import {ContactService} from '../../contact/contact.service';
   styleUrls: ['./document-show.component.css']
 })
 export class DocumentShowComponent implements OnInit {
+
+  // Search
+  q = new FormControl();
+  suggestions = new Array<Suggestion>();
+  isSuggestLoading = false;
 
   uuid: string;
   document: Document;
@@ -22,7 +30,7 @@ export class DocumentShowComponent implements OnInit {
   errorMsg: string;
   success: boolean;
 
-  constructor(private actRoute: ActivatedRoute, private documentService: DocumentService, private toastr: ToastrService, private titleService: Title, private metaTagService: Meta) {
+  constructor(private router: Router, private actRoute: ActivatedRoute, private searchService: SearchService, private documentService: DocumentService, private toastr: ToastrService, private titleService: Title, private metaTagService: Meta) {
     this.document = new Document();
 
     // Grab it from the active route
@@ -62,6 +70,36 @@ export class DocumentShowComponent implements OnInit {
       this.isPageLoading = false;
       this.success = false;
     });
+
+    // Suggestions
+    this.q.valueChanges.pipe(
+      debounceTime(500), // Wait for the person to type
+      tap(() => { // Reset errors
+        this.suggestions = [];
+      }),
+      filter(value => value.length > 2), // Min 3 chars for suggestions
+      tap(() => { // set the loading now that we are going to do work
+        this.isSuggestLoading = true;
+      }),
+      switchMap(value => this.searchService.getSuggestions(value, 10)
+        .pipe(
+          finalize(() => {
+            this.isSuggestLoading = false
+          })
+        )
+      ) // Grab the new data
+    )
+    .subscribe(data => { // Subscribe to it or some bullshit jargon
+      if (data == undefined) {
+        // this.errorMsg = data['Error'];
+        this.suggestions = [];
+      } else {
+        this.suggestions = data.map(item => {
+          return new Suggestion(item.name); // Create new model for list
+        });
+      }
+    });
+
   }
 
   downloadPDF(){
@@ -78,6 +116,17 @@ export class DocumentShowComponent implements OnInit {
     },(error) => {
       this.toastr.error("Could not download document");
     })
+  }
+
+  search(){
+    // console.log("searching: "+this.q.value);
+    this.router.navigate(['/search'], { queryParams: { q: this.q.value } });
+  }
+
+  suggestClick(suggestion){
+    // console.log("suggestion: "+suggestion);
+    this.q.setValue(suggestion);
+    this.search();
   }
 
 }
