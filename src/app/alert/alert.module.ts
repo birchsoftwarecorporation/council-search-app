@@ -5,6 +5,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AlertRoutingModule } from './alert-routing.module';
@@ -26,7 +27,8 @@ import { AlertShowComponent } from './alert-show/alert-show.component';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     AlertRoutingModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule
   ]
 })
 
