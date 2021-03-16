@@ -1,0 +1,31 @@
+.email-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.field-full-width {
+    width: 100%;
+}
+
+.submit-btn {
+  background-color: #d92027;
+  border: 1px solid #d92027;
+  color: #fff;
+  opacity: .75;
+}
+
+.submit-btn:hover {
+  opacity: 1.0;
+}
+
+.cancel-btn {
+    background-color: #b8b5b5;
+    border: 1px solid #b8b5b5;
+    color: #fff;
+    opacity: .75;
+}
+
+.cancel-btn:hover {
+    opacity: 1.0;
+}

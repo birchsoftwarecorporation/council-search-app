@@ -5095,3 +5095,7 @@ a.text-dark:hover {
 .result-content span.highlight {
   background: #fcff00;
 }
+
+.cdk-overlay-container {
+    z-index: 2000 !important;
+}
