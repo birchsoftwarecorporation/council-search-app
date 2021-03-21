@@ -32,6 +32,10 @@ export class DocumentShowComponent implements OnInit {
     errorMsg: string;
     success: boolean;
 
+    documentSearchTerm: string = "";
+    documentOriginalContent: string = "";
+    documentTextHighlighted: boolean = false;
+
     constructor(
         private router: Router, 
         private actRoute: ActivatedRoute, 
@@ -147,6 +151,39 @@ export class DocumentShowComponent implements OnInit {
         // console.log("suggestion: "+suggestion);
         this.q.setValue(suggestion);
         this.search();
+    }
+
+    searchWithinDocument() {
+        if (this.documentSearchTerm) {
+            const documentElement = document.querySelector(".document-content div");
+            let innerHTML = "";
+            if (this.documentOriginalContent) {
+                innerHTML = this.documentOriginalContent;
+            } else {
+                innerHTML = documentElement.innerHTML;
+                this.documentOriginalContent = innerHTML;
+            }
+            let index = innerHTML.indexOf(this.documentSearchTerm);
+            if (index >= 0) { 
+                let regex = new RegExp(this.documentSearchTerm, "g");
+                innerHTML = innerHTML.replace(regex,`<span class="highlight">${this.documentSearchTerm}</span>`);
+                documentElement.innerHTML = innerHTML;
+                this.documentTextHighlighted = true;
+                
+                setTimeout(() => {
+                    const firstMatchElement = document.querySelector('.document-content span.highlight')
+                    firstMatchElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+                }, 500);
+            } else {
+                documentElement.innerHTML = innerHTML;
+            }
+        }
+    }
+
+    clearSearchWithinDocument() {
+        this.documentSearchTerm = "";
+        this.documentTextHighlighted = false;
+        document.querySelector(".document-content div").innerHTML = this.documentOriginalContent;
     }
 
 }

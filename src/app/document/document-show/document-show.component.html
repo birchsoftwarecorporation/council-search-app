@@ -54,6 +54,11 @@
       <div class="download">
         <a (click)="downloadPDF()" class="regular-btn darker radius"><i class="fa fa-download"></i>&nbsp;Original PDF</a>
       </div>
+      <div class="document-search">
+        <input [(ngModel)]="documentSearchTerm" name="document-search-term" class="form-control" type="text" placeholder="Search within the document" (keyup.enter)="searchWithinDocument()">
+        <i *ngIf="!documentTextHighlighted" class="fa fa-search" (click)="searchWithinDocument()" title="Search within document"></i>
+        <i *ngIf="documentTextHighlighted" class="fa fa-times" (click)="clearSearchWithinDocument()" title="Clear search term"></i>
+      </div>
     </div>
   </div>
   <div class="row w-100">

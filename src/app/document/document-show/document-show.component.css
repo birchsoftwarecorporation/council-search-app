@@ -261,3 +261,26 @@ hr.header{
   width: 5rem;
   height: 5rem
 }
+
+/* Document search input styles */
+
+.document-search {
+    position: relative;
+    display: grid;
+    grid-template-columns: 250px;
+    justify-content: end;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.document-search input[name="document-search-term"] {
+    padding-right: 2rem;
+}
+
+.document-search .fa {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    color: #b9b9bb;
+    cursor: pointer;
+}
