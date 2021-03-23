@@ -11,6 +11,8 @@ import { Suggestion } from '../../search/models/suggestion';
 import { DocumentService } from '../document.service';
 import { Document } from '../models/document.model';
 import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
+import { ContactService } from '../../contact/contact.service';
+import { Contact } from '../../contact/models/contact.model'
 
 @Component({
     selector: 'app-document-show',
@@ -37,14 +39,15 @@ export class DocumentShowComponent implements OnInit {
     documentTextHighlighted: boolean = false;
 
     constructor(
-        private router: Router, 
-        private actRoute: ActivatedRoute, 
-        private searchService: SearchService, 
-        private documentService: DocumentService, 
-        private toastr: ToastrService, 
-        private titleService: Title, 
+        private router: Router,
+        private actRoute: ActivatedRoute,
+        private searchService: SearchService,
+        private documentService: DocumentService,
+        private toastr: ToastrService,
+        private titleService: Title,
         private metaTagService: Meta,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private contactService: ContactService
     ) {
         this.document = new Document();
 
@@ -116,30 +119,47 @@ export class DocumentShowComponent implements OnInit {
     }
 
     downloadPDF(){
-        const downloadDialogRef = this.dialog.open(DownloadDialogComponent, {
-            autoFocus: true,
-            restoreFocus: false
-        });
+      const downloadDialogRef = this.dialog.open(DownloadDialogComponent, {
+        autoFocus: true,
+        restoreFocus: false
+      });
 
-        downloadDialogRef.afterClosed().subscribe(result => {
-            if(result && result.action === "ok") {
-                // TODO: To be replaced with actual logic for utilizing user download info
-                console.log("User download info: ", result.userDownloadInfo);
-                
-                this.toastr.info("Preparing download...", "Document", { timeOut: 60000 });
-                this.documentService.pdf(this.uuid).subscribe(blob => {
-                    const a = document.createElement('a');
-                    const objectUrl = URL.createObjectURL(blob);
-                    a.href = objectUrl;
-                    a.download = this.uuid+".pdf";
-                    a.click();
-                    URL.revokeObjectURL(objectUrl);
-                    this.toastr.success("Downloading", "Document", { timeOut: 60000 });
-                },(error) => {
-                    this.toastr.error("Could not download document");
-                })
+      downloadDialogRef.afterClosed().subscribe(result => {
+        if(result && result.action === "ok") {
+          // TODO: To be replaced with actual logic for utilizing user download info
+          const contact = result.contact;
+
+          // Add some extras
+          contact.type = "download";
+          contact.message = this.uuid;
+
+          console.log("User download contact: ", result.contact);
+
+          // Start the download process
+          this.toastr.info("Preparing download...", "Document", { timeOut: 60000 });
+          this.documentService.pdf(this.uuid).subscribe(blob => {
+            const a = document.createElement('a');
+            const objectUrl = URL.createObjectURL(blob);
+            a.href = objectUrl;
+            a.download = this.uuid+".pdf";
+            a.click();
+            URL.revokeObjectURL(objectUrl);
+            this.toastr.success("Downloading", "Document", { timeOut: 60000 });
+          },(error) => {
+            this.toastr.error("Could not download document");
+          })
+
+
+          // Send the contact data
+          this.contactService.postContact(contact).subscribe(data => {
+            if (data == undefined) {
+              console.log(data['Error']);
+            } else {
+              // console.log(data);
             }
-        });
+          })
+        }
+      });
     }
 
     search(){
@@ -164,12 +184,12 @@ export class DocumentShowComponent implements OnInit {
                 this.documentOriginalContent = innerHTML;
             }
             let index = innerHTML.indexOf(this.documentSearchTerm);
-            if (index >= 0) { 
+            if (index >= 0) {
                 let regex = new RegExp(this.documentSearchTerm, "g");
                 innerHTML = innerHTML.replace(regex,`<span class="highlight">${this.documentSearchTerm}</span>`);
                 documentElement.innerHTML = innerHTML;
                 this.documentTextHighlighted = true;
-                
+
                 setTimeout(() => {
                     const firstMatchElement = document.querySelector('.document-content span.highlight')
                     firstMatchElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});

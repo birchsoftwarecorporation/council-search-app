@@ -1,11 +1,28 @@
+h4.downloadHeader {
+  font-family: Roboto, sans-serif;
+  color: #07092f;
+  text-align: justify;
+}
+
+hr.header{
+  border-top: 1px solid #d92027;
+}
+
+/* Error/Loading stuff */
+.errorMsg {
+  font-size: 30px;
+  color: grey;
+  border-left: 2px solid #d92027
+}
+
 .email-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .field-full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .submit-btn {
@@ -20,12 +37,12 @@
 }
 
 .cancel-btn {
-    background-color: #b8b5b5;
-    border: 1px solid #b8b5b5;
-    color: #fff;
-    opacity: .75;
+  background-color: #b8b5b5;
+  border: 1px solid #b8b5b5;
+  color: #fff;
+  opacity: .75;
 }
 
 .cancel-btn:hover {
-    opacity: 1.0;
+  opacity: 1.0;
 }

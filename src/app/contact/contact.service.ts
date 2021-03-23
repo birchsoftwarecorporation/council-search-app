@@ -14,7 +14,7 @@ export class ContactService {
   constructor(private http: HttpClient) { }
 
   public postContact(postData): Observable<any>{
-    return this.http.post(environment.BASE_URL+'/api/guest/contact/', postData, { headers: this.HTTP_HEADERS });
+    return this.http.post(environment.BASE_URL+'/api/guest/lead', postData, { headers: this.HTTP_HEADERS });
   }
 
 }
