@@ -13,6 +13,7 @@ import { Document } from '../models/document.model';
 import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
 import { ContactService } from '../../contact/contact.service';
 import { Contact } from '../../contact/models/contact.model'
+import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 
 @Component({
     selector: 'app-document-show',
@@ -183,10 +184,9 @@ export class DocumentShowComponent implements OnInit {
                 innerHTML = documentElement.innerHTML;
                 this.documentOriginalContent = innerHTML;
             }
-            let index = innerHTML.indexOf(this.documentSearchTerm);
+            let index = innerHTML.toLowerCase().indexOf(this.documentSearchTerm.toLowerCase());
             if (index >= 0) {
-                let regex = new RegExp(this.documentSearchTerm, "g");
-                innerHTML = innerHTML.replace(regex,`<span class="highlight">${this.documentSearchTerm}</span>`);
+                innerHTML = this.highlightText(this.documentSearchTerm, innerHTML);
                 documentElement.innerHTML = innerHTML;
                 this.documentTextHighlighted = true;
 
@@ -198,6 +198,16 @@ export class DocumentShowComponent implements OnInit {
                 documentElement.innerHTML = innerHTML;
             }
         }
+    }
+
+    escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+    highlightText(searchTerm, originalHTML) {
+        let newHTML = originalHTML.replace(new RegExp(this.escapeRegExp(searchTerm), "gi"), (match) => {
+            return '<span class="highlight">' + match + '</span>';
+        })
+        return newHTML;
     }
 
     clearSearchWithinDocument() {
