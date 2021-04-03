@@ -6,14 +6,17 @@ import {Meta, Title} from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import {debounceTime, filter, finalize, switchMap, tap} from 'rxjs/operators';
 
-import { SearchService } from '../../search/search.service';
-import { Suggestion } from '../../search/models/suggestion';
-import { DocumentService } from '../document.service';
+import { Activity } from '../../activity/models/activity.model';
 import { Document } from '../models/document.model';
+import { Suggestion } from '../../search/models/suggestion';
+
 import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
+
+import { ActivityService } from '../../activity/activity.service';
 import { ContactService } from '../../contact/contact.service';
-import { Contact } from '../../contact/models/contact.model'
-import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
+import { DocumentService } from '../document.service';
+import { SearchService } from '../../search/search.service';
+
 
 @Component({
     selector: 'app-document-show',
@@ -48,7 +51,8 @@ export class DocumentShowComponent implements OnInit {
         private titleService: Title,
         private metaTagService: Meta,
         public dialog: MatDialog,
-        private contactService: ContactService
+        private contactService: ContactService,
+        private activityService: ActivityService,
     ) {
         this.document = new Document();
 
@@ -175,29 +179,32 @@ export class DocumentShowComponent implements OnInit {
     }
 
     searchWithinDocument() {
-        if (this.documentSearchTerm) {
-            const documentElement = document.querySelector(".document-content div");
-            let innerHTML = "";
-            if (this.documentOriginalContent) {
-                innerHTML = this.documentOriginalContent;
-            } else {
-                innerHTML = documentElement.innerHTML;
-                this.documentOriginalContent = innerHTML;
-            }
-            let index = innerHTML.toLowerCase().indexOf(this.documentSearchTerm.toLowerCase());
-            if (index >= 0) {
-                innerHTML = this.highlightText(this.documentSearchTerm, innerHTML);
-                documentElement.innerHTML = innerHTML;
-                this.documentTextHighlighted = true;
+      // Send to the server
+      this.sendActivity("document-search", this.documentSearchTerm);
 
-                setTimeout(() => {
-                    const firstMatchElement = document.querySelector('.document-content span.highlight')
-                    firstMatchElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-                }, 500);
-            } else {
-                documentElement.innerHTML = innerHTML;
-            }
+      if (this.documentSearchTerm) {
+        const documentElement = document.querySelector(".document-content div");
+        let innerHTML = "";
+        if (this.documentOriginalContent) {
+            innerHTML = this.documentOriginalContent;
+        } else {
+            innerHTML = documentElement.innerHTML;
+            this.documentOriginalContent = innerHTML;
         }
+        let index = innerHTML.toLowerCase().indexOf(this.documentSearchTerm.toLowerCase());
+        if (index >= 0) {
+            innerHTML = this.highlightText(this.documentSearchTerm, innerHTML);
+            documentElement.innerHTML = innerHTML;
+            this.documentTextHighlighted = true;
+
+            setTimeout(() => {
+                const firstMatchElement = document.querySelector('.document-content span.highlight')
+                firstMatchElement.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            }, 500);
+        } else {
+            documentElement.innerHTML = innerHTML;
+        }
+      }
     }
 
     escapeRegExp(str) {
@@ -214,6 +221,18 @@ export class DocumentShowComponent implements OnInit {
         this.documentSearchTerm = "";
         this.documentTextHighlighted = false;
         document.querySelector(".document-content div").innerHTML = this.documentOriginalContent;
+    }
+
+    sendActivity(name, detail){
+      let activity = new Activity(name, detail);
+
+      this.activityService.save(activity).subscribe(data => {
+        if (data == undefined) {
+          this.errorMsg = data['Error'];
+        } else {
+          console.log(data);
+        }
+      })
     }
 
 }

@@ -1,5 +1,4 @@
 export class Document {
-  // TODO - Migrate to model
   public uuid: string;
 
   public stateAbbr: string;
