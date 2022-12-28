@@ -29,7 +29,7 @@ export class Alert {
     this.numPhrases = jsonObj.numPhrases;
     this.dateCreated = new Date(jsonObj.dateCreated);
     this.lastUpdated = new Date(jsonObj.lastUpdated);
-    this.imgNum = jsonObj.image
+    this.imgNum = jsonObj.image;
   }
 
 

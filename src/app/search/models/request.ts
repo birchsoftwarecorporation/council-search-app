@@ -1,6 +1,7 @@
 import {FormControl} from '@angular/forms';
 
 export class Request {
+
   public q = new FormControl();
   public offset: number;
   public rows: number;

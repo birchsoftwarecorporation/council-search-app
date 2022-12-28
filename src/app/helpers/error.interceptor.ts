@@ -13,7 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if ([401, 403].includes(err.status) && this.loginService.getCurrentUser()) {
         // auto logout if 401 or 403 response returned from api
-        console.error("Error is making 401 Unauthorized or 403 Forbidden...logging user out")
+        console.error("Error is making 401 Unauthorized or 403 Forbidden...logging user out");
         this.loginService.logout();
       }else{
         console.error("Some other bullshit error")

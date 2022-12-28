@@ -11,11 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptorService } from './helpers/jwt-interceptor.service';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { AuthGuard } from './helpers/auth-guard.service';
+import { ShowComponent } from './region/show/show.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShowComponent
   ],
   imports: [
     BrowserModule,

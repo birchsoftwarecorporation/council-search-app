@@ -97,7 +97,7 @@ export class MainComponent implements OnInit {
       .subscribe(data => { // Subscribe to it or some bullshit jargon
         // TODO - Add server error checking
         if (data == undefined) {
-          this.errorMsg = "Could not get Suggestions"
+          this.errorMsg = "Could not get Suggestions";
           this.suggestions = [];
         } else {
           this.errorMsg = "";
